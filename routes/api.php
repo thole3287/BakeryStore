@@ -21,7 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('products',[PageController::class,'getProductIndex']);
+Route::get("producttype/{type_id}",[PageController::class, "getProductByType"]);
 
+//identify
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
