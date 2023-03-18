@@ -23,8 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('products',[PageController::class,'getProductIndex']);
 // Route::get("productType/{type_id}",[PageController::class, "getProductByType"]);
 Route::get("productType/{type_id}",[PageController::class, "getProductsByType"]);
-
 Route::get("products_type", [PageController::class, 'getProductsType']);
+Route::get("product-detail/{id}", [PageController::class, "getProductsDetail"]);
+
+//search
+Route::get("search",[PageController::class, "getSearch"]);
+
 //identify
 Route::group([
     'middleware' => 'api',

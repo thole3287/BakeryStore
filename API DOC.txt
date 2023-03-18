@@ -1,0 +1,15 @@
+
+Auth API:
+	Login: http://localhost:81/api/auth/login
+	User Profile: http://localhost:81/api/auth/user-profile
+	Refresh: http://localhost:81/api/auth/refresh
+	Log out:http://localhost:81/api/auth/register (Key: name, email, password, password_confirmation)
+
+Product API:
+	Product type by id (include page index & paginate & sort): http://localhost:81/api/producttype/{type_id} (key: index, size, sort)
+	Product type (not paginate, index page, sort): http://localhost:81/api/productType/{type_id} 
+	List Product Type: http://localhost:81/api/products_type
+	Product Detail: http://localhost:81/api/product-detail/{id}
+
+Search API:
+	Search by key:  http://localhost:81/api/search (key: key)

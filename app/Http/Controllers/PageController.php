@@ -43,6 +43,7 @@ class PageController extends Controller
 
 
     // }
+    
     public function getProductsByType($type_id)
     {
         $productsByType = Products::where('id_type','=', $type_id)->get();
@@ -51,9 +52,28 @@ class PageController extends Controller
                     ]);
     }
 
-
     public function getProductsType() {
         return ProductType::get();
+    }
+
+    public function getProductsDetail($id)
+    {
+        $productsDetail = Products::where('id','=',$id)->first();
+        return response()->json([
+            "productsDetail" => $productsDetail
+            ]);
+    }
+
+    public function getSearch(Request $req)
+    {
+        // $keySearch = $req->query('key') ;
+        $searchProduct = Products::where("name", "like", "%".$req->query('key')."%")
+                            ->orWhere("unit_price", $req->query('key'))
+                            ->get();
+
+        return response()->json([
+            "searchProduct" =>  $searchProduct
+            ]);
     }
 
 
