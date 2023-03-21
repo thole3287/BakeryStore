@@ -11,6 +11,13 @@ class ProductType extends Model
     protected $table = "type_products";
     protected $primarykey ="id";
     public $timestamps = false;
+    
+    protected $fillable = [
+        'name', 
+        'description',
+        'image', 
+    ];
+
     public function product()
     {
         return $this->hasMany(Products::class, "id_type", "id");

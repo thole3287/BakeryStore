@@ -8,9 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Products extends Model
 {
     use HasFactory;
-    protected $table = "products";
-    protected $primarykey ="id";
-    public $timestamps = false;
+    // protected $table = "products";
+    // protected $primarykey ="id";
+    // public $timestamps = false;
+
+    protected $fillable = [
+        'name', 
+        'id_type',
+        'description',
+        'unit_price',
+        'promotion_price',
+        'image', 
+        'unit',
+        'new',
+    ];
     
     public function product_type()
     {

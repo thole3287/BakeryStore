@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function getProductIndex()
-    {
-        return Products::get();
-    }
 
     // public function getProductByType($type_id, Request $req)
     // {
@@ -43,18 +39,8 @@ class PageController extends Controller
 
 
     // }
-    
-    public function getProductsByType($type_id)
-    {
-        $productsByType = Products::where('id_type','=', $type_id)->get();
-        return response()->json([
-                    "productByType" => $productsByType
-                    ]);
-    }
 
-    public function getProductsType() {
-        return ProductType::get();
-    }
+    
 
     public function getProductsDetail($id)
     {
