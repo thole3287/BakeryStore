@@ -21,6 +21,51 @@ class ProductsController extends Controller
         
     }
 
+    // public function store(ProductStoreRequest $req)
+    // {
+
+       
+    //     try {
+    //         // Str::random(32).".".
+    //         // $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
+
+    //         // Read image data
+    //         $imageData = file_get_contents($req->image);
+
+    //         // Compress image data using gzip
+    //         // $compressedData = gzencode($imageData);
+
+    //         // Convert compressed data to base64
+    //         $base64Data = base64_encode($imageData);
+
+    //         // Create Product
+    //         Products::create([
+    //             'name' => $req->name,
+    //             'id_type' => $req->id_type,
+    //             'description' => $req->description,
+    //             'unit_price' => $req->unit_price,
+    //             'promotion_price' => $req->promotion_price,
+    //             'image' => $base64Data, // store base64-encoded compressed image data
+    //             'unit' => $req->unit,
+    //             'new' => $req->new
+    //         ]);
+
+    //         // // Save Image in Storage folder
+    //         // $path = 'uploads/products/' . $imageName;
+    //         // Storage::disk('public')->put($path, $compressedData);
+
+    //         // Return Json Response
+    //         return response()->json([
+    //             'message' => "Product successfully created.",
+    //             'image' => $base64Data
+    //         ],200);
+    //     } catch (\Exception $e) {
+    //         // Return Json Response
+    //         return response()->json([
+    //             'message' => "Something went really wrong!"
+    //         ],500);
+    //     }
+    // }
     public function store(ProductStoreRequest $req)
     {
         try {

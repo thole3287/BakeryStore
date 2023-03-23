@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductsTypeController;
@@ -40,6 +41,18 @@ Route::post("products-type", [ProductsTypeController::class, 'store']);
 Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
 Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
 
+//cart
+// Route::middleware('cart')->group(function () {
+//     Route::get("add-to-cart/{id}",[CartController::class, "addToCart"]);
+// });
+// Route::get('/add-to-cart/{id}', function () {
+//     Route::get("add-to-cart/{id}",[CartController::class, "addToCart"]);
+// })->middleware('cart');
+Route::get("add-to-cart", [CartController::class, 'showCart']);
+Route::get("add-to-cart/{id}",[CartController::class, "addToCart"])->middleware('web');
+Route::get('detete-item-cart/{id}', [CartController::class, 'deleteItemCart']);
+Route::get('detete-item-all-cart/{id}', [CartController::class, 'deleteItemAllCart']);
+Route::get('save-item-list-cart/{id}', [CartController::class, 'saveListItemCart']);
 
 
 
