@@ -54,7 +54,8 @@ Route::get('detete-item-cart/{id}', [CartController::class, 'deleteItemCart']);
 Route::get('detete-item-all-cart/{id}', [CartController::class, 'deleteItemAllCart']);
 Route::get('save-item-list-cart/{id}', [CartController::class, 'saveListItemCart']);
 
-
+//order item
+Route::post('order-items', [CartController::class, 'orderItems']);
 
 //search
 Route::get("search",[PageController::class, "getSearch"]);

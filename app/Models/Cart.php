@@ -17,17 +17,25 @@ class Cart
 		}
 	}
 	public function add($item, $id){
-		$cart = ['qty'=>0, 'price' => ($item->promotion_price==0)? $item->unit_price : $item->promotion_price, 'item' => $item];
+		// if ($item->stock <= 0) {
+		// 	return false; // Product is out of stock
+		// }
+		$cart = ['qty'=> 0, 'price' => ($item->promotion_price==0)? $item->unit_price : $item->promotion_price, 'item' => $item];
 		if($this->items){
 			if(array_key_exists($id, $this->items)){
 				$cart = $this->items[$id];
 			}
+		}
+		// Check if the product is in stock
+		if($item->stock < $cart['qty'] + 1 ){
+			return false;
 		}
 		$cart['qty']++;
 		$cart['price'] = (($item->promotion_price==0)? $item->unit_price : $item->promotion_price) * $cart['qty'];
 		$this->items[$id] = $cart;
 		$this->totalQty++;
 		$this->totalPrice += ($item->promotion_price==0) ? $item->unit_price : $item->promotion_price;
+		return true;
 	}
 
 	public function addMulti($item, $id, $qty = 1){

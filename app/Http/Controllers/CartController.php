@@ -5,14 +5,24 @@ use App\Models\Bill_detail;
 use App\Models\Bills;
 use Illuminate\Support\Facades\Session;
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlaced;
 
-class CartController extends Controller
+class CartController extends Controller 
 {
     public function __construct()
     {
         $this->middleware('web');
+    }
+
+    public function sendOrderConfirmationEmail($customer, $bill, $cart)
+    {
+        Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $cart));
     }
 
     public function showCart()
@@ -32,9 +42,22 @@ class CartController extends Controller
          if (!$products) {
             return response()->json(['message' => 'Item not found'], 404);
         }
+        // if ($products->stock < 1) {
+        //     return response()->json(['error' => 'Insufficient stock'], 400);
+        // }
+
+        
         $oldCart = Session('cart')? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($products, $id);
+        // if($products->stock <= 0 && )
+        // {
+        //     return response()->json(['error' => 'Insufficient stock'], 400);
+        // }
+       // Check if the product can be added to the cart
+        if(!$cart->add($products, $id)){
+            return response()->json(['message' => 'Product out of stock'], 400);
+        }
+        // $cart->add($products, $id);
         $req->session()->put('cart', $cart);
         return response()->json([
             'message' => 'Product added to cart successfully.',
@@ -159,6 +182,60 @@ class CartController extends Controller
     {
        
     }
+    public function orderItems(Request $req)
+    {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (JWTException $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to authenticate token.']);
+        }
+
+        $cart = Session::get('cart');
+        
+        //save information customer
+        $cus = new Customer();
+        $cus->name = $req->name;
+        $cus->gender = $req->gender;
+        $cus->email = $req->email;
+
+        $cus->address= $req->address;
+        $cus->phone_number = $req->phone_number;
+        $cus->note = $req->note;
+        $cus->save();
+
+        //save information of bill
+        $bill = new Bills();
+        $bill->id_customer = $cus->id;
+        $bill->date_order = date('Y-m-d');
+        $bill->total = $cart->totalPrice;
+        $bill->payment = $req->payment;
+        $bill->note = $req->note;
+        // $bill->state = $req->state;
+        $bill->save();
+        //save order details
+        foreach($cart->items as $key => $value)
+        {
+            $bd = new Bill_Detail();
+            $bd->id_bill = $bill->id;
+            $bd->id_product = $key;
+            $bd->quantity = $value["qty"];
+            $bd->unit_price = ($value["price"]/$value["qty"]);
+            $bd->save();
+        }
+         // Send confirmation email
+        // $this->sendOrderConfirmationEmail($cus, $bill, $cart);
+        // Clear cart
+        Session::forget('cart');
+        return response()->json(['success' => true, 'message' => 'Order placed successfully!']);
+    }
+    public function postOrderUpdate(Request $req, $id)
+    {
+        $bill= Bills::find($id);
+        $bill->state = $req->state;
+        $bill->save();
+        return response()->json(['message' => 'Order update successfully !!!']);
+    }
+
 
 
    
