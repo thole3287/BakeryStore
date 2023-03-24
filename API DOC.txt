@@ -18,7 +18,6 @@ Product Type API:
 	POST: Add product type: http://localhost:81/api/products-type
 	PUT: Update product type: http://localhost:81/api/products-type/{id}
 	DELETE: Delete type product: http://localhost:81/api/products-type/{id}
-<<<<<<< HEAD
 
 Cart API:
 	GET: show products in cart : http://localhost:81/api/add-to-cart
@@ -26,8 +25,9 @@ Cart API:
 	GET: Delete one item in cart: http://localhost:81/api/detete-item-cart/{id}
 	GET: Delete all item in cart: http://localhost:81/api/detete-item-all-cart/{id}
 	GET: Save item when user input quanty in FE:  http://localhost:81/api/save-item-list-cart/{id} (KEY: quanty)
-=======
->>>>>>> a5cd80dbd510a9a65f433093a907d4faa8592498
+
+Order Items API:
+	POST: Order items  http://localhost:81/api/order-items (key: name, gender, email, address, phone_number, note, payment(là phương thức thanh toán 0 là thanh toán khi nhận hàng 1 là chuyển khoản))
 
 Search API:
 	Search by key:  http://localhost:81/api/search (key: key)
