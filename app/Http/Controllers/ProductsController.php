@@ -71,7 +71,12 @@ class ProductsController extends Controller
         try {
 
             $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
-     
+            // Check if promotional price is not greater than original price
+            if ($req->promotion_price >= $req->unit_price) {
+                return response()->json([
+                    'message' => "The promotional price cannot be greater than the original price."
+                ], 422);
+            }
             // Create Product
             Products::create([
                 'name' => $req->name,
@@ -80,6 +85,7 @@ class ProductsController extends Controller
                 'unit_price' => $req->unit_price,
                 'promotion_price' => $req->promotion_price,
                 'image' => $imageName,
+                'stock' => $req->stock,
                 'unit' => $req->unit,
                 'new' => $req->new
             ]);
@@ -126,23 +132,21 @@ class ProductsController extends Controller
                 'message'=>'Product Not Found.'
               ],404);
             }
-     
+             // Check if promotional price is not greater than original price
+            if ($req->promotion_price >= $req->unit_price) {
+                return response()->json([
+                    'message' => "The promotional price cannot be greater than the original price."
+                ], 422);
+            }
             $product->name = $req->name;
             $product->description = $req->description;
 
             $product->id_type = $req->id_type;
             $product->unit_price = $req->unit_price;
             $product->promotion_price = $req->promotion_price;
+            $product->stock = $req->stock;
             $product->unit = $req->unit;
             $product->new = $req->new;
-
-                // 'description' => $req->description,
-                // 'unit_price' => $req->unit_price,
-                // 'promotion_price' => $req->promotion_price,
-                // 'image' => $imageName,
-                // 'unit' => $req->unit,
-                // 'new' => $req->new
-
             
             if($req->image) {
                 // Public storage

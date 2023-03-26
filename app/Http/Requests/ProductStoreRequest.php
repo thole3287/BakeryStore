@@ -29,6 +29,7 @@ class ProductStoreRequest extends FormRequest
                 'unit_price' => 'required',
                 'promotion_price' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'stock' => 'required',
                 'unit' => 'required',
                 'new' => 'required'
             ];
@@ -39,7 +40,8 @@ class ProductStoreRequest extends FormRequest
                 'description' => 'required|string',
                 'unit_price' => 'required',
                 'promotion_price' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',               
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',     
+                'stock' => 'required',          
                 'unit' => 'required',
                 'new' => 'required'
             ];
@@ -54,8 +56,9 @@ class ProductStoreRequest extends FormRequest
                 'id_type.required' => 'Type Products is required!',
                 'description.required' => 'Descritpion is required!',
                 'unit_price.required' => 'Unit Price is required!',
-                'promotion_price.required' => 'Promotion Price is Required!',
+                'promotion_price.required' => 'Promotion Price is required!',
                 'image.required' => 'Image is required!',
+                'stock.required' => 'Stock is required!',
                 'unit.required' => 'Unit is required!',
                 'new.required' => 'New is required!'
             ];
@@ -66,6 +69,7 @@ class ProductStoreRequest extends FormRequest
                 'description.required' => 'Descritpion is required!',
                 'unit_price.required' => 'Unit Price is required!',
                 'promotion_price.required' => 'Promotion Price is Required!',
+                'stock.required' => 'Stock is required!',
                 'unit.required' => 'Unit is required!',
                 'new.required' => 'New is required!'
             ];   

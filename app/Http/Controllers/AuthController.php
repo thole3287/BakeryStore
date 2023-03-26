@@ -28,6 +28,13 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
+
+        // $user = Auth::guard('api')->user();
+
+        // if ($user->level != 1) {
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        // }
+        
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }

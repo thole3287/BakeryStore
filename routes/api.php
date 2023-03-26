@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductsTypeController;
+use App\Http\Controllers\SlideController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +62,14 @@ Route::post('order-items', [CartController::class, 'orderItems']);
 //search
 Route::get("search",[PageController::class, "getSearch"]);
 
+//slide
+Route::get('slide', [SlideController::class, 'index']);
+Route::get('slide/{id}', [SlideController::class, 'show']); //slide detail
+Route::post('slide', [SlideController::class, 'store']);
+Route::put('slide/{id}',[SlideController::class, 'update']);
+Route::delete('slide/{id}', [SlideController::class, 'destroy']);
+
+
 //identify
 Route::group([
     'middleware' => 'api',
@@ -70,4 +80,36 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    Route::post('/login-admin', [AdminController::class, 'identifyUser']);
+    Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);
+
 });
+Route::get('/order-list',[CartController::class, 'orderList']);
+// Route::group(['middleware' => 'JwtMiddleware'], function () {
+//     Route::post('/login-admin', [AdminController::class, 'login']);
+// });
+// Route::group([
+//     'middleware' => 'api',
+//     'prefix' => 'jwt'
+// ], function ($router) {
+//     Route::get('/user-profile', [AdminController::class, 'userProfile']);
+//     Route::post('/login-admin', [AdminController::class, 'identifyUser']);
+// });
+
+// Route::get('/user-profile', [AdminController::class, 'userProfile']);
+// Route::post('/login-admin', [AdminController::class, 'identifyUser']);
+
+// Route::middleware(['jwt'])->group(function () {
+//     // Route::post('/login-admin', [AdminController::class, 'login']);
+//     Route::post('/login-admin', [AdminController::class, 'identifyUser']);
+
+// });
+// Route::middleware(['auth', 'jwt'])->group(function () {
+//     Route::get('/jwt', function () {
+//         return response()->json(['message' => 'Welcome, admin!']);
+//     });
+//     Route::post('/login-admin', [AdminController::class, 'login']);
+
+    
+//     // other admin-only routes here...
+// });

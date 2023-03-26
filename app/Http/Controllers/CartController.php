@@ -20,6 +20,13 @@ class CartController extends Controller
         $this->middleware('web');
     }
 
+    public function orderList()
+    {
+        $order = Bills::join('Customer','Customer.id','=', 'bills.id_customer')->get();
+        return response()->json([
+            'order' => $order,
+        ]);
+    }
     public function sendOrderConfirmationEmail($customer, $bill, $cart)
     {
         Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $cart));
@@ -222,11 +229,21 @@ class CartController extends Controller
             $bd->unit_price = ($value["price"]/$value["qty"]);
             $bd->save();
         }
+        // Deduct product quantities from stock
+        foreach($cart->items as $key => $value)
+        {
+            $product = Products::find($key);
+            $product->stock -= $value["qty"];
+            $product->save();
+        }
          // Send confirmation email
         // $this->sendOrderConfirmationEmail($cus, $bill, $cart);
         // Clear cart
         Session::forget('cart');
-        return response()->json(['success' => true, 'message' => 'Order placed successfully!']);
+        return response()->json([
+            'success' => true, 
+            'message' => 'Order placed successfully!'
+        ]);
     }
     public function postOrderUpdate(Request $req, $id)
     {
