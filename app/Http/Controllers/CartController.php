@@ -185,10 +185,16 @@ class CartController extends Controller
        }
     }
 
-    public function saveAllListItemCart(Request $req)
+    public function clearCart()
     {
-       
+        session(['cart' => '']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Remove all product in cart successfully!'
+        ]);
     }
+
+
     public function orderItems(Request $req)
     {
         try {

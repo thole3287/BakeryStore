@@ -1,4 +1,4 @@
-<!DOCTYPE html">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 
 <head>
@@ -8,9 +8,21 @@
     <meta name="x-apple-disable-message-reformatting">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
     <style type="text/css">
+        tr {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .text-right {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .center {
+            margin-right: 12px !important;
+        }
+        
         body,
         table,
         td {
@@ -197,8 +209,7 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="space-y-4">
-                                                        <h1 class="text-4xl fw-800" style="padding-top: 0; padding-bottom: 0; font-weight: 800 !important; vertical-align: baseline; font-size: 36px; line-height: 43.2px; margin: 0;" align="left">Thanks for your order, {{ $customer->name }}
-                                                        </h1>
+                                                        <h1 class="text-4xl fw-800" style="padding-top: 0; padding-bottom: 0; font-weight: 800 !important; vertical-align: baseline; font-size: 36px; line-height: 43.2px; margin: 0;" align="left">Thanks for your order, Josh</h1>
                                                         <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                                             <tbody>
                                                                 <tr>
@@ -208,8 +219,7 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <p class="" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">The estimated delivery time for your order is 6:10 PM - 6:20 PM. Track your order on the Bakery Store website.
-                                                        </p>
+                                                        <p class="" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">The estimated delivery time for your order is 6:10 PM - 6:20 PM. Track your order on the Hip Corp website.</p>
                                                         <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                                             <tbody>
                                                                 <tr>
@@ -223,8 +233,7 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td style="line-height: 24px; font-size: 16px; border-radius: 9999px; width: 192px; margin: 0;" align="center" bgcolor="#dc3545" width="192">
-                                                                        <a href="#" style="color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 9999px; line-height: 20px; display: block; font-weight: normal; white-space: nowrap; background-color: #dc3545; padding: 8px 24px; border: 1px solid #dc3545;">Track
-                                                                            Your Order</a>
+                                                                        <a href="https://app.bootstrapemail.com/templates" style="color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 9999px; line-height: 20px; display: block; font-weight: normal; white-space: nowrap; background-color: #dc3545; padding: 8px 24px; border: 1px solid #dc3545;">Track Your Order</a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -239,151 +248,95 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class=" card rounded-3xl px-4 py-8 p-lg-10" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 24px; border-collapse: separate !important; width: 100%; overflow: hidden; border: 1px solid #e2e8f0;" bgcolor="#ffffff">
+                                                    <table class="card rounded-3xl px-4 py-8 p-lg-10" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 24px; border-collapse: separate !important; width: 100%; overflow: hidden; border: 1px solid #e2e8f0;" bgcolor="#ffffff">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="line-height: 24px; font-size: 16px; width: 100%; border-radius: 24px; margin: 0; padding: 40px;" align="left" bgcolor="#ffffff">
-                                                                    <h3 class="text-center" style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;" align="center">Receipt from Bakery Store</h3>
-                                                                    <p class="text-center text-muted" style="line-height: 24px; font-size: 16px; color: #718096; width: 100%; margin: 0;" align="center">Receipt #{$bill->id}</p>
-                                                                    <table class="table  p-2 w-full" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                                                                        <thead>
+                                                                    <h3 class="text-center" style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;" align="center">Receipt from HipCorp</h3>
+                                                                    <p class="text-center text-muted" style="line-height: 24px; font-size: 16px; color: #718096; width: 100%; margin: 0;" align="center">Receipt #ABCD-EFGH</p>
+                                                                    <table class="p-2 w-full" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+                                                                        <tbody style="display: flex; flex-direction: column;">
                                                                             <tr>
-
-                                                                                <th scope="col">First</th>
-                                                                                <th scope="col">Last</th>
-                                                                                <th scope="col">Handle</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-
-                                                                                <td>Mark</td>
-                                                                                <td>Otto</td>
-                                                                                <td>@mdo</td>
+                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Products</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">Quantity</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">Price</td>
                                                                             </tr>
                                                                             <tr>
-
-                                                                                <td>Jacob</td>
-                                                                                <td>Thornton</td>
-                                                                                <td>@fat</td>
+                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Trucker Hat</td>
+                                                                                <td class="text-right center" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">1</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">$12.00</td>
                                                                             </tr>
                                                                             <tr>
-
-                                                                                <td>Larry</td>
-                                                                                <td>the Bird</td>
-                                                                                <td>@twitter</td>
+                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Sunflower Seeds</td>
+                                                                                <td class="text-right center" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">2</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">$20.00</td>
                                                                             </tr>
-                                                                        </tbody>
-                                                                        <tfoot>
-
-
-                                                                            <td>Larry</td>
-                                                                            <td>the Bird</td>
-                                                                            <td>@twitter</td>
-                                                                        </tfoot>
-                                                                        <!-- <thead>
-                                                                            <tr>
-                                                                                <td><b>Product</b></td>
-                                                                                <td><b>Quantity</b></td>
-                                                                                <td><b>Price</b></td>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>test</td>
-                                                                                <td>1</td>
-                                                                                <td>99.000 đồng</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Amount paid:</td>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>99.000 đồng</td>
-                                                                            </tr> -->
-
-                                                                        <!-- <tr>
-
-                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">
-                                                                                    test</td>
-                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">
-                                                                                    1</td>
-                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">
-                                                                                    99k đồng</td>
-                                                                            </tr>
-
                                                                             <tr>
                                                                                 <td class="fw-700 border-top" style="line-height: 24px; font-size: 16px; border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important; width: 100%; font-weight: 700 !important; margin: 0; padding: 8px;" align="left"
-                                                                                    width="100%">
-                                                                                    Amount paid:</td>
-                                                                                <td>&nbsp;</td>
+                                                                                    width="100%">Amount paid</td>
                                                                                 <td class="fw-700 text-right border-top" style="line-height: 24px; font-size: 16px; border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important; width: 100%; font-weight: 700 !important; margin: 0; padding: 8px;"
-                                                                                    align="right" width="100%">
-                                                                                    99k đồng.</td>
-                                                                            </tr> -->
+                                                                                    align="right" width="100%">1.000.000 đồng</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
+                                                                                    &#160;
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <table class="hr" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="line-height: 24px; font-size: 16px; border-top-width: 1px; border-top-color: #e2e8f0; border-top-style: solid; height: 1px; width: 100%; margin: 0;" align="left">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
+                                                                                    &#160;
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">If you have any questions, contact us at <a href="https://bootstrapemail.com" style="color: #0d6efd;"><span class="__cf_email__" data-cfemail="8bc3e2fbc8e4f9fbcbeef3eae6fbe7eea5e8e4e6">[email&#160;protected]</span></a>.</p>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
-                                                        </table>
-                                                        <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
-                                                                        &#160;
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <table class="hr" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="line-height: 24px; font-size: 16px; border-top-width: 1px; border-top-color: #e2e8f0; border-top-style: solid; height: 1px; width: 100%; margin: 0;" align="left">
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
-                                                                        &#160;
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">If you have any questions, contact us at <a href="#" style="color: #0d6efd;"><span
-                                                                                class="__cf_email__"
-                                                                                data-cfemail="8bc3e2fbc8e4f9fbcbeef3eae6fbe7eea5e8e4e6">thole17062002@gmail.com</span></a>.
-                                                        </p>
-                                                        </td>
-                                                        </tr>
+                                                    </table>
+                                                    <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
+                                                                    &#160;
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
                                         </tbody>
-                                        </table>
-                                        <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
-                                                        &#160;
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        </td>
-                                        </tr>
-                        </tbody>
-                        </table>
-                        <!--[if (gte mso 9)|(IE)]>
+                                    </table>
+                                    <!--[if (gte mso 9)|(IE)]>
                     </td>
                   </tr>
                 </tbody>
               </table>
                     <![endif]-->
-                        </td>
-                        </tr>
-        </tbody>
-        </table>
-        </td>
-        </tr>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </tbody>
     </table>
-    <script src="<script src=" https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js " integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin=" anonymous
-        " referrerpolicy="no-referrer "></script>"></script>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 

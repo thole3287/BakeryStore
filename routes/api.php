@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PasswordResetRequestController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductsTypeController;
 use App\Http\Controllers\SlideController;
@@ -55,6 +57,7 @@ Route::get("add-to-cart/{id}",[CartController::class, "addToCart"])->middleware(
 Route::get('detete-item-cart/{id}', [CartController::class, 'deleteItemCart']);
 Route::get('detete-item-all-cart/{id}', [CartController::class, 'deleteItemAllCart']);
 Route::get('save-item-list-cart/{id}', [CartController::class, 'saveListItemCart']);
+Route::get('clear-cart', [CartController::class, 'clearCart']);
 
 //order item
 Route::post('order-items', [CartController::class, 'orderItems']);
@@ -82,9 +85,19 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::post('/login-admin', [AdminController::class, 'identifyUser']);
     Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);
+    Route::post('send-password-reset-link', [PasswordResetRequestController::class, 'sendEmail']);
+    Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
 
 });
-Route::get('/order-list',[CartController::class, 'orderList']);
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'order'
+], function ($router) {
+    Route::get('/order-list',[CartController::class, 'orderList']);
+
+});
+// Route::get('/order-list',[CartController::class, 'orderList']);
 // Route::group(['middleware' => 'JwtMiddleware'], function () {
 //     Route::post('/login-admin', [AdminController::class, 'login']);
 // });
