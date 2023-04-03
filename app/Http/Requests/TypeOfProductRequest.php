@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductStoreRequest extends FormRequest
+class TypeOfProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +21,12 @@ class ProductStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+
         if(request()->isMethod('post')) {
             return [
                 'name' => 'required|string|max:258',
                 'id_type' => 'required',
-                'description' => 'nullable|string',
+                'description' => 'required|string',
                 'unit_price' => 'required',
                 'promotion_price' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',
@@ -37,7 +38,7 @@ class ProductStoreRequest extends FormRequest
             return [
                 'name' => 'required|string|max:258',
                 'id_type' => 'required',
-                'description' => 'nullable|string',
+                'description' => 'required|string',
                 'unit_price' => 'required',
                 'promotion_price' => 'required',
                 'image' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',     
@@ -46,6 +47,9 @@ class ProductStoreRequest extends FormRequest
                 'new' => 'required'
             ];
         }
+        // return [
+        //     //
+        // ];
     }
 
     public function messages()

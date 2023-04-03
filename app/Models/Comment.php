@@ -10,7 +10,7 @@ class Comment extends Model
     use HasFactory;
     protected $table = "comment";
     protected $primarykey ="id";
-    public $timestamps = true;
+    // public $timestamps = true;
 
     public function customer(){
         return $this->belongsTo(Customer::class, "id", "id");

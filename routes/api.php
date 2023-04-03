@@ -57,7 +57,9 @@ Route::get("add-to-cart/{id}",[CartController::class, "addToCart"])->middleware(
 Route::get('detete-item-cart/{id}', [CartController::class, 'deleteItemCart']);
 Route::get('detete-item-all-cart/{id}', [CartController::class, 'deleteItemAllCart']);
 Route::get('save-item-list-cart/{id}', [CartController::class, 'saveListItemCart']);
-Route::get('clear-cart', [CartController::class, 'clearCart']);
+// Route::get('clear-cart', [CartController::class, 'clearCart']);
+Route::get('order-list', [CartController::class, 'orderList']);
+
 
 //order item
 Route::post('order-items', [CartController::class, 'orderItems']);
@@ -71,6 +73,14 @@ Route::get('slide/{id}', [SlideController::class, 'show']); //slide detail
 Route::post('slide', [SlideController::class, 'store']);
 Route::put('slide/{id}',[SlideController::class, 'update']);
 Route::delete('slide/{id}', [SlideController::class, 'destroy']);
+
+Route::put('cancel-order/{id}', [CartController::class, 'cancelOrder']);
+
+// Route::put('/bills/{id}/cancel', [CartController::class, 'cancelOrder']);
+
+
+// Route::delete('/orders/{id}/items/{itemId}', 'OrderController@cancelOrderItem');
+
 
 
 //identify
@@ -87,14 +97,22 @@ Route::group([
     Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);
     Route::post('send-password-reset-link', [PasswordResetRequestController::class, 'sendEmail']);
     Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
-
+    Route::put('/users/{id}', [AuthController::class, 'update']);
 });
+Route::post('cart/{id}', [CartController::class, 'addToCart']);
+Route::get('/cart', [CartController::class, 'showCart']);
+
+
+// Route::delete('/orders/{id}', 'OrderController@removeOrderList');
+// Route::delete('/remove-bill/{id}', [CartController::class, 'removeOrderList']);
+
 
 Route::group([
     'middleware' => 'api',
     'prefix' => 'order'
 ], function ($router) {
     Route::get('/order-list',[CartController::class, 'orderList']);
+    Route::delete('/remove-bill/{id}', [CartController::class, 'removeOrderList']);
 
 });
 // Route::get('/order-list',[CartController::class, 'orderList']);

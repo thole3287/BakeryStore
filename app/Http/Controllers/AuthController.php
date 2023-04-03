@@ -28,12 +28,6 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
-
-        // $user = Auth::guard('api')->user();
-
-        // if ($user->level != 1) {
-        //     return response()->json(['error' => 'Unauthorized'], 401);
-        // }
         
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -42,6 +36,38 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->createNewToken($token);
+    }
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Validate user input
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string',
+            'phone' => 'required|numeric|max:10',
+            'address' =>'required'
+            // 'email' => 'required|email|unique:users,email,'.$id
+        ],[
+            'name.required' => 'Name is required!',
+            'name.string' => 'Name must be a string!',
+            'phone.required' => 'Phone is required!',
+            'phone.numeric' => 'Phone must be numeric!',
+            'phone.max' => 'Phone number can have maximum 10 digits!',
+            'address.required' => 'Address is required!'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
+        }
+        $user->name = $request->input('name');
+        // $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->address = $request->input('address');
+        $user->save();
+
+        return response()->json(['user' => $user]);
     }
     /**
      * Register a User.

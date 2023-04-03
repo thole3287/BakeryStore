@@ -8,6 +8,7 @@ use App\Models\ProductType;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductsTypeController extends Controller
 {
@@ -29,19 +30,23 @@ class ProductsTypeController extends Controller
     public function store(ProductTypeRequest $req)
     {
         try {
+              // Read image data
+              $imageData = file_get_contents($req->image);
 
-            $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
+              // Convert compressed data to base64
+              $base64Data = base64_encode($imageData);
+            // $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
      
             // Create Product
             ProductType::create([
                 'name' => $req->name,
                 'description' => $req->description,
-                'image' => $imageName,
+                'image' =>  $base64Data,
             ]);
      
-            // Save Image in Storage folder
-            $path = 'uploads/products/' . $imageName;
-            Storage::disk('public')->put($path, file_get_contents($req->image));
+            // // Save Image in Storage folder
+            // $path = 'uploads/products/' . $imageName;
+            // Storage::disk('public')->put($path, file_get_contents($req->image));
      
             // Return Json Response
             return response()->json([
@@ -59,34 +64,25 @@ class ProductsTypeController extends Controller
     {
         try {
             // Find product
-            $product = Products::find($id);
+            $product = ProductType::find($id);
             if(!$product){
-              return response()->json([
+            return response()->json([
                 'message'=>'Product Type Not Found.'
-              ],404);
+            ],404);
             }
-     
+    
             $product->name = $req->name;
             $product->description = $req->description;
-            if($req->image) {
-                // Public storage
-                $storage = Storage::disk('public');
-     
-                // Old iamge delete
-                if($storage->exists($product->image))
-                    $storage->delete($product->image);
-     
-                // Image name
-                $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
-                $product->image = 'uploads/products/'.$imageName; // specify the subfolder path
-     
-                // Image save in public folder
-                $storage->put('uploads/products/'.$imageName, file_get_contents($req->image));// specify the subfolder path
+            
+            if ($req->hasFile('image')) {
+                $image = $req->file('image');
+                $image_base64 = base64_encode(file_get_contents($image));
+                $product->image = $image_base64;
             }
-     
+    
             // Update Product
             $product->save();
-     
+    
             // Return Json Response
             return response()->json([
                 'message' => "Product Type successfully updated."
@@ -98,6 +94,50 @@ class ProductsTypeController extends Controller
             ],500);
         }
     }
+
+    // public function update(ProductTypeRequest $req, $id)
+    // {
+    //     try {
+    //         // Find product
+    //         $product = Products::find($id);
+    //         if(!$product){
+    //           return response()->json([
+    //             'message'=>'Product Type Not Found.'
+    //           ],404);
+    //         }
+     
+    //         $product->name = $req->name;
+    //         $product->description = $req->description;
+    //         if($req->image) {
+    //             // Public storage
+    //             $storage = Storage::disk('public');
+     
+    //             // Old iamge delete
+    //             if($storage->exists($product->image))
+    //                 $storage->delete($product->image);
+     
+    //             // Image name
+    //             $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
+    //             $product->image = 'uploads/products/'.$imageName; // specify the subfolder path
+     
+    //             // Image save in public folder
+    //             $storage->put('uploads/products/'.$imageName, file_get_contents($req->image));// specify the subfolder path
+    //         }
+     
+    //         // Update Product
+    //         $product->save();
+     
+    //         // Return Json Response
+    //         return response()->json([
+    //             'message' => "Product Type successfully updated."
+    //         ],200);
+    //     } catch (\Exception $e) {
+    //         // Return Json Response
+    //         return response()->json([
+    //             'message' => "Something went really wrong!"
+    //         ],500);
+    //     }
+    // }
 
     public function destroy($id)
     {
@@ -118,12 +158,12 @@ class ProductsTypeController extends Controller
         }
         else
         {
-                // Public storage
-            $storage = Storage::disk('public');
+            //     // Public storage
+            // $storage = Storage::disk('public');
         
-            // Iamge delete
-            if($storage->exists('uploads/products/'.$product->image)) // specify the subfolder path
-                $storage->delete('uploads/products/'.$product->image);// specify the subfolder path
+            // // Iamge delete
+            // if($storage->exists('uploads/products/'.$product->image)) // specify the subfolder path
+            //     $storage->delete('uploads/products/'.$product->image);// specify the subfolder path
         
             // Delete Product
             $product->delete();

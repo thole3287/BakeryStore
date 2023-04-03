@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\Products;
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\TypeOfProductRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
@@ -21,23 +23,60 @@ class ProductsController extends Controller
         
     }
 
+    public function store(TypeOfProductRequest $req)
+    {
+       
+        
+        try {
+            // Read image data
+            $imageData = file_get_contents($req->image);
+
+            // Convert compressed data to base64
+            $base64Data = base64_encode($imageData);
+            
+            // Check if promotional price is not greater than original price
+            if ($req->promotion_price >= $req->unit_price) {
+            return response()->json([
+                'message' => "The promotional price cannot be greater than the original price."
+            ], 422);
+            }
+            
+            // Create Product
+            Products::create([
+                'name' => $req->name,
+                'id_type' => $req->id_type,
+                'description' => $req->description,
+                'unit_price' => $req->unit_price,
+                'promotion_price' => $req->promotion_price,
+                'image' => $base64Data, // store base64-encoded compressed image data
+                'stock' => $req->stock,
+                'unit' => $req->unit,
+                'new' => $req->new
+            ]);
+            
+            // Return Json Response
+            return response()->json([
+                'message' => "Type of product created successfully!",
+                'image' => $base64Data
+            ],200);
+            } catch (\Exception $e) {
+            // Return Json Response
+            return response()->json([
+                'message' => "Something went really wrong!"
+            ],500);
+        }
+    }
     // public function store(ProductStoreRequest $req)
     // {
-
-       
     //     try {
-    //         // Str::random(32).".".
-    //         // $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
 
-    //         // Read image data
-    //         $imageData = file_get_contents($req->image);
-
-    //         // Compress image data using gzip
-    //         // $compressedData = gzencode($imageData);
-
-    //         // Convert compressed data to base64
-    //         $base64Data = base64_encode($imageData);
-
+    //         $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
+    //         // Check if promotional price is not greater than original price
+    //         if ($req->promotion_price >= $req->unit_price) {
+    //             return response()->json([
+    //                 'message' => "The promotional price cannot be greater than the original price."
+    //             ], 422);
+    //         }
     //         // Create Product
     //         Products::create([
     //             'name' => $req->name,
@@ -45,19 +84,19 @@ class ProductsController extends Controller
     //             'description' => $req->description,
     //             'unit_price' => $req->unit_price,
     //             'promotion_price' => $req->promotion_price,
-    //             'image' => $base64Data, // store base64-encoded compressed image data
+    //             'image' => $imageName,
+    //             'stock' => $req->stock,
     //             'unit' => $req->unit,
     //             'new' => $req->new
     //         ]);
-
-    //         // // Save Image in Storage folder
-    //         // $path = 'uploads/products/' . $imageName;
-    //         // Storage::disk('public')->put($path, $compressedData);
-
+     
+    //         // Save Image in Storage folder
+    //         $path = 'uploads/products/' . $imageName;
+    //         Storage::disk('public')->put($path, file_get_contents($req->image));
+     
     //         // Return Json Response
     //         return response()->json([
-    //             'message' => "Product successfully created.",
-    //             'image' => $base64Data
+    //             'message' => "Product successfully created."
     //         ],200);
     //     } catch (\Exception $e) {
     //         // Return Json Response
@@ -66,45 +105,6 @@ class ProductsController extends Controller
     //         ],500);
     //     }
     // }
-    public function store(ProductStoreRequest $req)
-    {
-        try {
-
-            $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
-            // Check if promotional price is not greater than original price
-            if ($req->promotion_price >= $req->unit_price) {
-                return response()->json([
-                    'message' => "The promotional price cannot be greater than the original price."
-                ], 422);
-            }
-            // Create Product
-            Products::create([
-                'name' => $req->name,
-                'id_type' => $req->id_type,
-                'description' => $req->description,
-                'unit_price' => $req->unit_price,
-                'promotion_price' => $req->promotion_price,
-                'image' => $imageName,
-                'stock' => $req->stock,
-                'unit' => $req->unit,
-                'new' => $req->new
-            ]);
-     
-            // Save Image in Storage folder
-            $path = 'uploads/products/' . $imageName;
-            Storage::disk('public')->put($path, file_get_contents($req->image));
-     
-            // Return Json Response
-            return response()->json([
-                'message' => "Product successfully created."
-            ],200);
-        } catch (\Exception $e) {
-            // Return Json Response
-            return response()->json([
-                'message' => "Something went really wrong!"
-            ],500);
-        }
-    }
 
     public function show($id)
     {
@@ -132,7 +132,7 @@ class ProductsController extends Controller
                 'message'=>'Product Not Found.'
               ],404);
             }
-             // Check if promotional price is not greater than original price
+            // Check if promotional price is not greater than original price
             if ($req->promotion_price >= $req->unit_price) {
                 return response()->json([
                     'message' => "The promotional price cannot be greater than the original price."
@@ -148,21 +148,26 @@ class ProductsController extends Controller
             $product->unit = $req->unit;
             $product->new = $req->new;
             
-            if($req->image) {
-                // Public storage
-                $storage = Storage::disk('public');
-     
-                // Old iamge delete
-                if($storage->exists($product->image))
-                    $storage->delete($product->image);
-     
-                // Image name
-                $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
-                $product->image = 'uploads/products/'.$imageName; // specify the subfolder path
-     
-                // Image save in public folder
-                $storage->put('uploads/products/'.$imageName, file_get_contents($req->image));// specify the subfolder path
+            if ($req->hasFile('image')) {
+                $image = $req->file('image');
+                $image_base64 = base64_encode(file_get_contents($image));
+                $product->image = $image_base64;
             }
+            // if($req->image) {
+            //     // Public storage
+            //     $storage = Storage::disk('public');
+     
+            //     // Old iamge delete
+            //     if($storage->exists($product->image))
+            //         $storage->delete($product->image);
+     
+            //     // Image name
+            //     $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
+            //     $product->image = 'uploads/products/'.$imageName; // specify the subfolder path
+     
+            //     // Image save in public folder
+            //     $storage->put('uploads/products/'.$imageName, file_get_contents($req->image));// specify the subfolder path
+            // }
      
             // Update Product
             $product->save();
@@ -189,12 +194,12 @@ class ProductsController extends Controller
           ],404);
         }
      
-        // Public storage
-        $storage = Storage::disk('public');
+        // // Public storage
+        // $storage = Storage::disk('public');
      
-        // Iamge delete
-        if($storage->exists('uploads/products/'.$product->image)) // specify the subfolder path
-            $storage->delete('uploads/products/'.$product->image);// specify the subfolder path
+        // // Iamge delete
+        // if($storage->exists('uploads/products/'.$product->image)) // specify the subfolder path
+        //     $storage->delete('uploads/products/'.$product->image);// specify the subfolder path
      
         // Delete Product
         $product->delete();

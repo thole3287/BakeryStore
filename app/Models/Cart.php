@@ -35,22 +35,31 @@ class Cart
 		$this->items[$id] = $cart;
 		$this->totalQty++;
 		$this->totalPrice += ($item->promotion_price==0) ? $item->unit_price : $item->promotion_price;
+
+		//  // Save cart to database
+		// $cartModel = new Cart([
+		// 	'items' => json_encode($this->items),
+		// 	'totalQty' => $this->totalQty,
+		// 	'totalPrice' => $this->totalPrice,
+		// ]);
+
+		// $cartModel->save();
 		return true;
 	}
 
-	public function addMulti($item, $id, $qty = 1){
-		$cart = ['qty'=>0, 'price' => ($item->promotion_price == 0) ? $item->unit_price:$item->promotion_price, 'item' => $item];
-		if($this->items){
-			if(array_key_exists($id, $this->items)){
-				$cart = $this->items[$id];
-			}
-		}
-		$cart['qty']+=$qty;
-		$cart['price'] = ($item->promotion_price==0) ? $item->unit_price: $item->promotion_price * $cart['qty'];
-		$this->items[$id] = $cart;
-		$this->totalQty+=$qty;
-		$this->totalPrice += $cart['price']*$qty;
-	}
+	// public function addMulti($item, $id, $qty = 1){
+	// 	$cart = ['qty'=>0, 'price' => ($item->promotion_price == 0) ? $item->unit_price:$item->promotion_price, 'item' => $item];
+	// 	if($this->items){
+	// 		if(array_key_exists($id, $this->items)){
+	// 			$cart = $this->items[$id];
+	// 		}
+	// 	}
+	// 	$cart['qty']+=$qty;
+	// 	$cart['price'] = ($item->promotion_price==0) ? $item->unit_price: $item->promotion_price * $cart['qty'];
+	// 	$this->items[$id] = $cart;
+	// 	$this->totalQty+=$qty;
+	// 	$this->totalPrice += $cart['price']*$qty;
+	// }
 
 	//xóa 1
 	public function reduceByOne($id){

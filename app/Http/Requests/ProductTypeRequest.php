@@ -21,11 +21,11 @@ class ProductTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        if(request()->isMethod('post')) {
+        if(request()->isMethod('put')) {
             return [
                 'name'=>'required',
                 'description'=> 'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',
             ];
         } else {
             return [
@@ -37,7 +37,7 @@ class ProductTypeRequest extends FormRequest
 
     public function messages()
     {
-        if(request()->isMethod('post')) {
+        if(request()->isMethod('put')) {
             return [
                 'name.required' => 'Name of Type Product is required!',
                 'description.required' => 'Description of Product Type is required!',

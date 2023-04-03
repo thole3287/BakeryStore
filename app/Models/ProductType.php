@@ -10,7 +10,7 @@ class ProductType extends Model
     use HasFactory;
     protected $table = "type_products";
     protected $primarykey ="id";
-    public $timestamps = false;
+    // public $timestamps = false;
     
     protected $fillable = [
         'name', 
