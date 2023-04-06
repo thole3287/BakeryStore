@@ -43,6 +43,12 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        // 'api_except_csrf' => [
+        //     // ...
+        //     \App\Http\Middleware\EncryptCookies::class,
+        //     \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        // ],
     ];
 
     /**

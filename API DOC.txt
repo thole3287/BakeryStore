@@ -12,6 +12,10 @@ Product API:
 	PUT: Update product: http://localhost:81/api/products/{id}
 	DELETE: http://localhost:81/api/products/{id}
 
+	GET: Get new product: http://localhost:81/api/new-products
+	GET: Get selling product: http://localhost:81/api/selling-products
+
+
 Product Type API:
 	GET: show all product type: http://localhost:81/api/products-type
 	GET: Product type detail: http://localhost:81/api/products-type/{type_id}
@@ -28,6 +32,9 @@ Cart API:
 
 Order Items API:
 	POST: Order items  http://localhost:81/api/order-items (key: name, gender, email, address, phone_number, note, payment(là phương thức thanh toán 0 là thanh toán khi nhận hàng 1 là chuyển khoản))
+	DELETE: delete bill and bill detail :: http://localhost:81/api/delete-bill/{id}
+	Get: get detail bill: http://localhost:81/api/order-update/{id}
+
 
 Search API:
 	Search by key:  http://localhost:81/api/search (key: key)

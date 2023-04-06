@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Bill_detail;
 use App\Models\Products;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
@@ -48,6 +50,31 @@ class PageController extends Controller
         return response()->json([
             "productsDetail" => $productsDetail
             ]);
+    }
+    public function relatedProducts($id)
+    {
+        $productsDetail = Products::where('id','=',$id)->first();
+        $relatedProducts = Products::where('id_type', '=', $productsDetail->id_type)->paginate(5);
+        return response()->json([
+            'relatedProduct' =>  $relatedProducts
+        ]);
+    }
+    public function newProducts()
+    {
+        $newProducts = Products::where('new', '=', 1)->take(8)->get();
+        return response()->json([
+            'newProducts' =>  $newProducts
+        ]);
+
+    }
+    public function sellingProducts()
+    {
+        $sellingProducts = Bill_detail::selectRaw('id_product, sum(quantity) as total')
+                                        ->groupBy('id_product')
+                                        ->orderByDesc('total')->take(2)->get();
+        return response()->json([
+            'sellingProducts' =>  $sellingProducts
+        ]);                                
     }
 
     public function getSearch(Request $req)

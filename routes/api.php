@@ -30,6 +30,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('products',[PageController::class,'getProductIndex']);
 // Route::get("productType/{type_id}",[PageController::class, "getProductByType"]);
 // Route::get("product-detail/{id}", [PageController::class, "getProductsDetail"]);
+Route::get("related-products/{id}", [PageController::class, "relatedProducts"]);
+Route::get("new-products", [PageController::class, "newProducts"]);
+Route::get("selling-products", [PageController::class, "sellingProducts"]);
+
+
+// Route::middleware('auth:api')->group(function () {
+//     Route::post('/cancel-order-item', [CartController::class, 'cancelOrderItem'])->middleware('api_except_csrf');
+// });
+
+// Route::delete('order-items/{id}', [CartController::class, 'cancelOrderItem']);
+
 
 //products
 Route::get('products', [ProductsController::class, 'Index']);
@@ -74,7 +85,14 @@ Route::post('slide', [SlideController::class, 'store']);
 Route::put('slide/{id}',[SlideController::class, 'update']);
 Route::delete('slide/{id}', [SlideController::class, 'destroy']);
 
-Route::put('cancel-order/{id}', [CartController::class, 'cancelOrder']);
+// Route::middleware('auth:api')->group(function () {
+//     Route::post('orders/{orderId}/items/{itemId}/cancel', [CartController::class, 'cancelOrderItem']);
+// });
+
+Route::get('order-update/{id}', [CartController::class, 'show']);
+Route::delete('/orders/{id}/items/{itemId}', [CartController::class, 'cancelOrderItem']);
+
+// Route::put('cancel-order/{id}', [CartController::class, 'cancelOrder']);
 
 // Route::put('/bills/{id}/cancel', [CartController::class, 'cancelOrder']);
 
@@ -103,8 +121,8 @@ Route::post('cart/{id}', [CartController::class, 'addToCart']);
 Route::get('/cart', [CartController::class, 'showCart']);
 
 
-// Route::delete('/orders/{id}', 'OrderController@removeOrderList');
-// Route::delete('/remove-bill/{id}', [CartController::class, 'removeOrderList']);
+Route::delete('order-items/{id}', [CartController::class, 'cancelOrderItem']);
+Route::delete('delete-bill/{id}', [CartController::class,'deleteBill']);//ok
 
 
 Route::group([
@@ -113,6 +131,8 @@ Route::group([
 ], function ($router) {
     Route::get('/order-list',[CartController::class, 'orderList']);
     Route::delete('/remove-bill/{id}', [CartController::class, 'removeOrderList']);
+    // Route::delete('order-items/{id}', [CartController::class, 'cancelOrderItem']);
+
 
 });
 // Route::get('/order-list',[CartController::class, 'orderList']);
