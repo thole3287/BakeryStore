@@ -34,13 +34,42 @@ class PasswordResetRequestController extends Controller
         $oldToken = DB::table('password_reset_tokens')->where('email', $email)->first();
 
         if ($oldToken) {
-            return $oldToken->token;
+            return url('/reset-password/'.$oldToken->token);
         }
 
         $token = Str::random(40);
         $this->saveToken($token, $email);
-        return $token;
+        return url('/reset-password/'.$token);
+        // return $token;
+        // $url = "http://localhost:81/reset-password/" . $token;
+        // return $url;
     }
+
+    public function showResetForm($token, Request $request)
+    {
+        $resetToken = DB::table('password_reset_tokens')->where('token', $token)->first();
+        
+        if (!$resetToken) {
+            abort(404);
+        }
+        // $url = url('/reset-password/' . $resetToken->token);
+
+
+        return view('emails.resetPass', ['email' => $resetToken->email, 'request' => $request]);
+    }
+
+    // public function createToken($email)  // this is a function to get your request email that there are or not to send mail
+    // {
+    //     $oldToken = DB::table('password_reset_tokens')->where('email', $email)->first();
+
+    //     if ($oldToken) {
+    //         return $oldToken->token;
+    //     }
+
+    //     $token = Str::random(40);
+    //     $this->saveToken($token, $email);
+    //     return $token;
+    // }
 
 
     public function saveToken($token, $email)  // this function save new password

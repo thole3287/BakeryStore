@@ -1,4 +1,4 @@
-<!DOCTYPE html">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 
 <head>
@@ -301,43 +301,31 @@
                                                                         align="center">Receipt from Bakery Store</h3>
                                                                     <p class="text-center text-muted"
                                                                         style="line-height: 24px; font-size: 16px; color: #718096; width: 100%; margin: 0;"
-                                                                        align="center">Receipt #{$bill->id}</p>
+                                                                        align="center">Receipt #{{ $bill->id }}</p>
                                                                     <table class="p-2 w-full" border="0"
                                                                         cellpadding="0" cellspacing="0"
                                                                         style="width: 100%;" width="100%">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Product</th>
-                                                                                <th>Quantity</th>
-                                                                                <th>Price</th>
-                                                                            </tr>
-                                                                        </thead>
                                                                         <tbody>
-                                                                            @foreach($cart->items as $item)
-                                                                                <tr>
-                                                                                    <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;"
-                                                                                        align="left" width="100%">
-                                                                                        {{ $item['item']->name }}</td>
-                                                                                    <td class="text-right"
-                                                                                        style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;"
-                                                                                        align="right" width="100%">
-                                                                                        {{ $item['qty'] }}</td>
-                                                                                    <td class="text-right"
+                                                                           @foreach ($items as $item )
+                                                                           <tr>
+                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;"
+                                                                                    align="left" width="100%">{{ $item['productName'] }} (Qt: {{$item['quantity']}})</td>
+                                                                                <td class="text-right"
                                                                                     style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;"
                                                                                     align="right" width="100%">
-                                                                                    {{ number_format($item['price']) }} đồng</td>
-                                                                                </tr>
-                                                                            @endforeach
+                                                                                    {{ number_format($item['price']) }}đ</td>
+                                                                            </tr>
+                                                                           @endforeach
+                                                                                                                                 
                                                                             <tr>
                                                                                 <td class="fw-700 border-top"
                                                                                     style="line-height: 24px; font-size: 16px; border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important; width: 100%; font-weight: 700 !important; margin: 0; padding: 8px;"
                                                                                     align="left" width="100%">
-                                                                                    Amount paid:</td>
-                                                                                <td>&nbsp;</td>
+                                                                                    Amount paid</td>
                                                                                 <td class="fw-700 text-right border-top"
                                                                                     style="line-height: 24px; font-size: 16px; border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important; width: 100%; font-weight: 700 !important; margin: 0; padding: 8px;"
                                                                                     align="right" width="100%">
-                                                                                    {{ number_format($cart->totalPrice) }} đồng.</td>
+                                                                                    {{ number_format($bill->total) }}đ</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>

@@ -165,10 +165,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function sendOrderConfirmationEmail($customer, $bill, $cart)
-    {
-        Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $cart));
-    }
+  
 
     public function showCart(Request $request)
     {
@@ -286,7 +283,10 @@ class CartController extends Controller
             'message' => 'Remove all product in cart successfully!'
         ]);
     }
-
+    public function sendOrderConfirmationEmail($customer, $bill, $cart)
+    {
+        Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $cart));
+    }
     public function orderItems(Request $request)
     {
         try {
@@ -344,7 +344,7 @@ class CartController extends Controller
         }
 
         // Send confirmation email
-        // $this->sendOrderConfirmationEmail($cus, $bill, $items);
+        $this->sendOrderConfirmationEmail($cus, $bill, $items);
 
         return response()->json([
             'success' => true, 

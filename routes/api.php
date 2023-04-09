@@ -114,7 +114,11 @@ Route::group([
     Route::post('/login-admin', [AdminController::class, 'identifyUser']);
     Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);
     Route::post('send-password-reset-link', [PasswordResetRequestController::class, 'sendEmail']);
-    Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
+    // Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
+    Route::post('/reset-password', [ChangePasswordController::class, 'passwordResetProcess'])->name('password.update');
+
+
+
     Route::put('/users/{id}', [AuthController::class, 'update']);
 });
 Route::post('cart/{id}', [CartController::class, 'addToCart']);

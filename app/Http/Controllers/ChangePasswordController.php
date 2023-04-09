@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 class ChangePasswordController extends Controller
 {
-    public function passwordResetProcess(UpdatePasswordRequest $request){
+      public function passwordResetProcess(UpdatePasswordRequest $request){
         return $this->updatePasswordRow($request)->count() > 0 ? $this->resetPassword($request) : $this->tokenNotFoundError();
       }
   
@@ -32,6 +32,10 @@ class ChangePasswordController extends Controller
       private function resetPassword($request) {
           // find email
           $userData = User::whereEmail($request->email)->first();
+
+          if (!$userData) {
+            return response()->view('emails.404');
+          }
           // update password
           $userData->update([
             'password'=>bcrypt($request->password)

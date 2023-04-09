@@ -18,13 +18,13 @@ class OrderPlaced extends Mailable
 
     public $customer;
     public $bill;
-    public $cart;
+    public $items;
 
-    public function __construct(Customer $customer, Bills $bill, $cart)
+    public function __construct(Customer $customer, Bills $bill, $items)
     {
         $this->customer = $customer;
         $this->bill = $bill;
-        $this->cart = $cart;
+        $this->items = $items; 
     }
 
     /**
@@ -33,7 +33,7 @@ class OrderPlaced extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Placed',
+            subject: 'Order Placed Confirmation',
         );
     }
 
@@ -62,7 +62,7 @@ class OrderPlaced extends Mailable
                     ->with([
                         'customer' => $this->customer,
                         'bill' => $this->bill,
-                        'cart' => $this->cart
+                        'items' => $this->items
                     ]);
     }
 }
