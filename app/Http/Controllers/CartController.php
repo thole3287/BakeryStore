@@ -83,6 +83,10 @@ class CartController extends Controller
 
         $bill->delete();
 
+        //  // Send an email announcing the cancellation of the order
+        // Mail::to($user->email)->send(new CancelOrder($bill));
+
+
         return response()->json(['message' => 'Bill deleted successfully'], 200);
     }
 
@@ -283,9 +287,9 @@ class CartController extends Controller
             'message' => 'Remove all product in cart successfully!'
         ]);
     }
-    public function sendOrderConfirmationEmail($customer, $bill, $cart)
+    public function sendOrderConfirmationEmail($customer, $bill, $items)
     {
-        Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $cart));
+        Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $items));
     }
     public function orderItems(Request $request)
     {

@@ -31,17 +31,19 @@ class ProductsTypeController extends Controller
     {
         try {
               // Read image data
-              $imageData = file_get_contents($req->image);
+            //   $imageData = file_get_contents($req->image);
 
               // Convert compressed data to base64
-              $base64Data = base64_encode($imageData);
+            //   $base64Data = base64_encode($imageData);
             // $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
      
             // Create Product
             ProductType::create([
                 'name' => $req->name,
                 'description' => $req->description,
-                'image' =>  $base64Data,
+                // 'image' =>  $base64Data,
+                'image' =>  $req->image,
+
             ]);
      
             // // Save Image in Storage folder

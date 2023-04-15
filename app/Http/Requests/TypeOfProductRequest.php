@@ -31,7 +31,7 @@ class TypeOfProductRequest extends FormRequest
                 'promotion_price' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',
                 'stock' => 'required',
-                'unit' => 'required',
+                'unit' => 'nullable|string',
                 'new' => 'required'
             ];
         } else {
@@ -43,7 +43,7 @@ class TypeOfProductRequest extends FormRequest
                 'promotion_price' => 'required',
                 'image' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',     
                 'stock' => 'required',          
-                'unit' => 'required',
+                'unit' => 'nullable|string',
                 'new' => 'required'
             ];
         }
@@ -63,8 +63,8 @@ class TypeOfProductRequest extends FormRequest
                 'promotion_price.required' => 'Promotion Price is required!',
                 'image.required' => 'Image is required!',
                 'stock.required' => 'Number of products in stock is required!',
-                'unit.required' => 'Unit is required!',
-                'new.required' => 'New is required!'
+                // 'unit.required' => 'Unit is required!',
+                'new.required' => 'New is required!',
             ];
         } else {
             return [
@@ -74,7 +74,7 @@ class TypeOfProductRequest extends FormRequest
                 'unit_price.required' => 'Unit Price is required!',
                 'promotion_price.required' => 'Promotion Price is Required!',
                 'stock.required' => 'Number of products in stock is required!',
-                'unit.required' => 'Unit is required!',
+                // 'unit.required' => 'Unit is required!',
                 'new.required' => 'New is required!'
             ];   
         }

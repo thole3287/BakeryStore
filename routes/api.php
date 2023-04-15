@@ -98,6 +98,8 @@ Route::delete('/orders/{id}/items/{itemId}', [CartController::class, 'cancelOrde
 
 
 // Route::delete('/orders/{id}/items/{itemId}', 'OrderController@cancelOrderItem');
+Route::post('/login-adminid', [AuthController::class, 'loginAdmin']);
+
 
 
 

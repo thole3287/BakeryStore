@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator; 
 
@@ -17,6 +18,35 @@ class AuthController extends Controller
      */
     public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+    public function loginAdmin(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = JWTAuth::fromUser($user);
+            if ($user->level == 2) {
+                return response()->json([
+                    'message' => 'Login successful as manager',
+                    'token' => $token,
+                    // 'user' => $user
+                ], 200);
+            } else if ($user->level == 1) {
+                return response()->json([
+                    'message' => 'Login successful as staff',
+                    'token' => $token,
+                    // 'user' => $user
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => 'Invalid user level',
+                ], 401);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid email or password',
+            ], 401);
+        }
     }
     /**
      * Get a JWT via given credentials.

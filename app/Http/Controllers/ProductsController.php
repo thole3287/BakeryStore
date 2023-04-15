@@ -23,11 +23,13 @@ class ProductsController extends Controller
         
     }
 
-    public function store(TypeOfProductRequest $req)
+    public function store(ProductStoreRequest $req)
     {
        
         
         try {
+            // $unit = $req->filled('unit') ? $req->unit : null;
+
             // Read image data
             $imageData = file_get_contents($req->image);
 
@@ -40,6 +42,8 @@ class ProductsController extends Controller
                 'message' => "The promotional price cannot be greater than the original price."
             ], 422);
             }
+
+
             
             // Create Product
             Products::create([
