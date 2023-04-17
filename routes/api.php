@@ -5,11 +5,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DescriptionOfAboutController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FAQsController;
+use App\Http\Controllers\HirringAboutController;
 use App\Http\Controllers\NoNastiesController;
+use App\Http\Controllers\OurKitchenController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordResetRequestController;
+use App\Http\Controllers\PositionAboutController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductsTypeController;
 use App\Http\Controllers\SlideController;
@@ -100,13 +104,20 @@ Route::group(['middleware' => 'jwtManager'], function () {
 });
 
 //type product
-Route::get("products-type", [ProductsTypeController::class, 'index']);
-Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
+// Route::get("products-type", [ProductsTypeController::class, 'index']);
+// Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
 // Route::post("products-type", [ProductsTypeController::class, 'store']);
 // Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
 // Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
 
+Route::group(['middleware' => 'jwtStaff'], function () {
+    Route::get("products-type", [ProductsTypeController::class, 'index']);
+    Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
+});
+
 Route::group(['middleware' => 'jwtManager'], function () {
+    Route::get("products-type", [ProductsTypeController::class, 'index']);
+    Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
     Route::post("products-type", [ProductsTypeController::class, 'store']);
     Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
     Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
@@ -149,6 +160,42 @@ Route::group(['middleware' => 'jwtManager'], function () {
     Route::delete('slide/{id}', [SlideController::class, 'destroy']);
 });
 
+//kitchen
+Route::get('kitchen', [OurKitchenController::class, 'index']);
+Route::get('kitchen/{id}', [OurKitchenController::class, 'show']); //kitchen detail
+Route::group(['middleware' => 'jwtManager'], function () {
+    // Route::get('kitchen', [OurKitchenController::class, 'index']);
+    // Route::get('kitchen/{id}', [OurKitchenController::class, 'show']); //kitchen detail
+    Route::post('kitchen', [OurKitchenController::class, 'store']);
+    Route::put('kitchen/{id}',[OurKitchenController::class, 'update']);
+    Route::delete('kitchen/{id}', [OurKitchenController::class, 'destroy']);
+});
+
+
+
+//avaible position
+Route::get('position', [PositionAboutController::class, 'index']);
+Route::get('position/{id}', [PositionAboutController::class, 'show']); //position detail
+Route::group(['middleware' => 'jwtManager'], function () {
+    // Route::get('position', [PositionAboutController::class, 'index']);
+    // Route::get('position/{id}', [PositionAboutController::class, 'show']); //position detail
+    Route::post('position', [PositionAboutController::class, 'store']);
+    Route::put('position/{id}',[PositionAboutController::class, 'update']);
+    Route::delete('position/{id}', [PositionAboutController::class, 'destroy']);
+});
+
+/// we are hirring
+Route::get('hirring', [HirringAboutController::class, 'index']);
+Route::get('hirring/{id}', [HirringAboutController::class, 'show']); //hirring detail
+Route::group(['middleware' => 'jwtManager'], function () {
+    // Route::get('hirring', [HirringAboutController::class, 'index']);
+    // Route::get('hirring/{id}', [HirringAboutController::class, 'show']); //hirring detail
+    Route::post('hirring', [HirringAboutController::class, 'store']);
+    Route::put('hirring/{id}',[HirringAboutController::class, 'update']);
+    Route::delete('hirring/{id}', [HirringAboutController::class, 'destroy']);
+});
+
+
 // Route::middleware('auth:api')->group(function () {
 //     Route::post('orders/{orderId}/items/{itemId}/cancel', [CartController::class, 'cancelOrderItem']);
 // });
@@ -173,6 +220,15 @@ Route::group(['middleware' => 'jwtManager'], function () {
     // Route::post('/employees/calculate-working-time', [EmployeeController::class, 'calculateWorkingTime']);
     Route::post('/employees/working-time', [EmployeeController::class, 'addWorkingTime']);
 });
+
+
+Route::get('about-discription', [DescriptionOfAboutController::class, 'index']);
+Route::get('about-discription/{id}', [DescriptionOfAboutController::class, 'show']);
+// Route::post('about-discription', [DescriptionOfAboutController::class, 'store']);
+// Route::put('about-discription/{id}', [DescriptionOfAboutController::class, 'update']);
+
+
+
 
 // Route::get('/employees', [EmployeeController::class, 'index']);
 // Route::post('/employees', [EmployeeController::class, 'store']);

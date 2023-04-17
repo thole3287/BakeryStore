@@ -37,12 +37,39 @@ class EmployeeController extends Controller
         
     }
 
-    public function show($id)
-    {
-        $employee = Employee::with('workingTimes')->findOrFail($id);
+    // public function show($id)
+    // {
+    //     $employee = Employee::with('workingTimes')->findOrFail($id);
+    
+    //     return response()->json(['data' => $employee]);
+    // }
+    // public function show($id)
+    // {
+    //     $employee = Employee::with('workingTimes')->findOrFail($id);
+        
+    //     // Get the current month and year
+    //     $month = date('m');
+    //     $year = date('Y');
+        
+    //     // Get the first and last day of the month
+    //     $firstDay = date('Y-m-d', strtotime("first day of $year-$month"));
+    //     $lastDay = date('Y-m-d', strtotime("last day of $year-$month"));
+        
+    //     // Calculate the total working time in the month
+    //     $totalWorkingTime = $employee->workingTimes()
+    //         ->whereBetween('date', [$firstDay, $lastDay])
+    //         ->sum('total_time');
+        
+    //     // Format the total working time to h:i:s format
+    //     $formattedTotalWorkingTime = gmdate('H:i:s', $totalWorkingTime);
+        
+    //     // Return the employee data and total working time in the month
+    //     return response()->json([
+    //         'data' => $employee,
+    //         'total_working_time_in_month' => $formattedTotalWorkingTime,
+    //     ]);
+    // }
 
-        return response()->json(['data' => $employee]);
-    }
 
     public function update(Request $request, $id)
     {
@@ -74,32 +101,67 @@ class EmployeeController extends Controller
         return response()->json(['message' => 'Employee deleted successfully']);
     }
 
-    public function addWorkingTime(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'employee_id' => 'required',
-            'start_time' => 'required|date_format:Y-m-d H:i:s',
-            'end_time' => 'required|date_format:Y-m-d H:i:s',
-        ]);
+    // public function addWorkingTime(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'employee_id' => 'required',
+    //         'start_time' => 'required|date_format:Y-m-d H:i:s',
+    //         'end_time' => 'required|date_format:Y-m-d H:i:s',
+    //     ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()], 400);
+    //     }
+
+    //     $employee = Employee::findOrFail($request->input('employee_id'));
+
+    //     $start_time = Carbon::parse($request->input('start_time'));
+    //     $end_time = Carbon::parse($request->input('end_time'));
+
+    //     $workingTime = new WorkingTime;
+    //     $workingTime->employee_id = $employee->id;
+    //     $workingTime->start_time = $start_time;
+    //     $workingTime->end_time = $end_time;
+    //     $workingTime->total_time = gmdate("H:i:s", $end_time->diffInSeconds($start_time));
+    //     $workingTime->save();
+
+    //     return response()->json(['data' => $workingTime]);
+    // }
+//     public function show(Request $request, $id)
+// {
+//     $employee = Employee::with('workingTimes')->findOrFail($id);
+
+//     $date = Carbon::parse($request->input('date'));
+//     $start_date = $date->copy()->startOfMonth();
+//     $end_date = $date->copy()->endOfMonth();
+
+//     $working_times = WorkingTime::where('employee_id', $id)
+//         ->whereBetween('start_time', [$start_date, $end_date])
+//         ->get();
+
+//     $total_time = $working_times->sum('total_time');
+
+//     return response()->json(['data' => [
+//         'employee' => $employee,
+//         'total_time' => $total_time
+//     ]]);
+// }
+        
+        public function show($id)
+        {
+            $employee = Employee::with(['workingTimes' => function ($query) {
+                $query->whereBetween('start_time', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()]);
+            }])->findOrFail($id);
+
+            $totalTime = $employee->workingTimes->sum(function ($workingTime) {
+                return CarbonInterval::createFromFormat('H:i:s', $workingTime->total_time)->totalSeconds;
+            });
+
+            $formattedTotalTime = CarbonInterval::seconds($totalTime)->cascade()->format('%H:%I:%S');
+
+            return response()->json(['data' => $employee, 'total_time_in_month' => $formattedTotalTime]);
         }
 
-        $employee = Employee::findOrFail($request->input('employee_id'));
-
-        $start_time = Carbon::parse($request->input('start_time'));
-        $end_time = Carbon::parse($request->input('end_time'));
-
-        $workingTime = new WorkingTime;
-        $workingTime->employee_id = $employee->id;
-        $workingTime->start_time = $start_time;
-        $workingTime->end_time = $end_time;
-        $workingTime->total_time = gmdate("H:i:s", $end_time->diffInSeconds($start_time));
-        $workingTime->save();
-
-        return response()->json(['data' => $workingTime]);
-    }
 
 
     // public function addWorkingTime(Request $request)

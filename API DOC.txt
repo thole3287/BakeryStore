@@ -1,5 +1,5 @@
 
-lƯU Ý: method put khi test trong post man thì dùng post và ở phần paragam key: _method và value là PUT
+lƯU Ý: method put khi test trong post man thì dùng post và ở phần params key: _method và value là PUT
 
 Auth API:
 	POST: Login: http://localhost:81/api/auth/login
@@ -76,6 +76,32 @@ Employee API:
 	delete: delete employees by id:  http://localhost:81/api/employees/{id}
 	put: update employees by id:  http://localhost:81/api/employees/{id}
 	POST: add working time:  http://localhost:81/api/employees/working-time
+
+Kitchen: 
+	GET: get all kitchen:  http://localhost:81/api/kitchen
+	GET: get kitchen detail:  http://localhost:81/api/kitchen/{id}
+	POST: add kitchen:  http://localhost:81/api/kitchen
+	delete: delete kitchen by id:  http://localhost:81/api/kitchen/{id}
+	put: update kitchen by id:  http://localhost:81/api/kitchen/{id}
+
+Position API: 
+	GET: get all position:  http://localhost:81/api/position
+	GET: get position detail:  http://localhost:81/api/position/{id}
+	POST: add position:  http://localhost:81/api/position
+	delete: delete position by id:  http://localhost:81/api/position/{id}
+	put: update position by id:  http://localhost:81/api/position/{id}
+
+Hirring API: 
+	GET: get all hirring:  http://localhost:81/api/hirring
+	GET: get hirring detail:  http://localhost:81/api/hirring/{id}
+	POST: add hirring:  http://localhost:81/api/hirring
+	delete: delete hirring by id:  http://localhost:81/api/hirring/{id}
+	put: update hirring by id:  http://localhost:81/api/hirring/{id}
+
+About Cake API: 
+	GET: get all about cakes:  http://localhost:81/api/about-discription
+	GET: get about cakes detail:  http://localhost:81/api/about-discription/{id}
+
 
 Search API:
 	Search by key:  http://localhost:81/api/search (key: key)
