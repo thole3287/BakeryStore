@@ -69,9 +69,19 @@ class PageController extends Controller
     }
     public function sellingProducts()
     {
+        // $sellingProducts = Bill_detail::selectRaw('id_product, sum(quantity) as total')
+        //                                 ->groupBy('id_product')
+        //                                 ->orderByDesc('total')->take(2)->get();
+        // $sellingProducts = Bill_detail::selectRaw('products.name, sum(quantity) as total')
+        //                                     ->join('products', 'bill_detail.id_product', '=', 'products.id')
+        //                                     ->groupBy('bill_detail.id_product')
+        //                                     ->orderByDesc('total')->take(2)->get();
         $sellingProducts = Bill_detail::selectRaw('id_product, sum(quantity) as total')
-                                        ->groupBy('id_product')
-                                        ->orderByDesc('total')->take(2)->get();
+                                            ->with('product')
+                                            ->groupBy('id_product')
+                                            ->orderByDesc('total')
+                                            ->take(2)
+                                            ->get();
         return response()->json([
             'sellingProducts' =>  $sellingProducts
         ]);                                

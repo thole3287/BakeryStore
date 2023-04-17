@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordResetRequestController;
 use App\Http\Controllers\ProductsController;
@@ -81,9 +82,15 @@ Route::get("search",[PageController::class, "getSearch"]);
 //slide
 Route::get('slide', [SlideController::class, 'index']);
 Route::get('slide/{id}', [SlideController::class, 'show']); //slide detail
-Route::post('slide', [SlideController::class, 'store']);
+
+
+// Route::post('slide', [SlideController::class, 'store']);
 Route::put('slide/{id}',[SlideController::class, 'update']);
 Route::delete('slide/{id}', [SlideController::class, 'destroy']);
+
+Route::group(['middleware' => 'jwtManager'], function () {
+    Route::post('slide', [SlideController::class, 'store']);
+});
 
 // Route::middleware('auth:api')->group(function () {
 //     Route::post('orders/{orderId}/items/{itemId}/cancel', [CartController::class, 'cancelOrderItem']);
@@ -99,6 +106,15 @@ Route::delete('/orders/{id}/items/{itemId}', [CartController::class, 'cancelOrde
 
 // Route::delete('/orders/{id}/items/{itemId}', 'OrderController@cancelOrderItem');
 Route::post('/login-adminid', [AuthController::class, 'loginAdmin']);
+
+
+Route::get('/employees', [EmployeeController::class, 'index']);
+Route::post('/employees', [EmployeeController::class, 'store']);
+Route::get('/employees/{id}', [EmployeeController::class, 'show']);
+Route::put('/employees/{id}', [EmployeeController::class, 'update']);
+Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
+Route::post('/employees/calculate-working-time', [EmployeeController::class, 'calculateWorkingTime']);
+Route::post('/employees/working-time', [EmployeeController::class, 'addWorkingTime']);
 
 
 
