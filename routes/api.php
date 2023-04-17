@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FAQsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordResetRequestController;
 use App\Http\Controllers\ProductsController;
@@ -34,6 +35,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("related-products/{id}", [PageController::class, "relatedProducts"]);
 Route::get("new-products", [PageController::class, "newProducts"]);
 Route::get("selling-products", [PageController::class, "sellingProducts"]);
+
+
+//FAQs
+Route::get('faq', [FAQsController::class, 'index']);
+Route::get('faq/{id}', [FAQsController::class, 'show']);//detail
+Route::post('faq', [FAQsController::class, 'store']);
+Route::delete('faq/{id}', [FAQsController::class, 'destroy']);
+Route::put('faq/{id}', [FAQsController::class, 'update']);
+
+
 
 
 // Route::middleware('auth:api')->group(function () {
