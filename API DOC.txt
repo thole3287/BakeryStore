@@ -35,6 +35,13 @@ Order Items API:
 	DELETE: delete bill and bill detail :: http://localhost:81/api/delete-bill/{id}
 	Get: get detail bill: http://localhost:81/api/order-update/{id}
 
+FAQs: 
+	GET: all faqs: 
+	Get: detail faqs:
+	Post: add faq:
+	DELETE: delete faq: http://localhost:81/api/faq/13
+	PUT: Update faq: http://localhost:81/api/faq/{id}?_method=PUT
+
 
 Search API:
 	Search by key:  http://localhost:81/api/search (key: key)
