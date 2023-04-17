@@ -30,11 +30,11 @@ class ProductsController extends Controller
         try {
             // $unit = $req->filled('unit') ? $req->unit : null;
 
-            // Read image data
-            $imageData = file_get_contents($req->image);
+            // // Read image data
+            // $imageData = file_get_contents($req->image);
 
-            // Convert compressed data to base64
-            $base64Data = base64_encode($imageData);
+            // // Convert compressed data to base64
+            // $base64Data = base64_encode($imageData);
             
             // Check if promotional price is not greater than original price
             if ($req->promotion_price >= $req->unit_price) {
@@ -52,7 +52,8 @@ class ProductsController extends Controller
                 'description' => $req->description,
                 'unit_price' => $req->unit_price,
                 'promotion_price' => $req->promotion_price,
-                'image' => $base64Data, // store base64-encoded compressed image data
+                // 'image' => $base64Data, // store base64-encoded compressed image data
+                'image' => $req->image, 
                 'stock' => $req->stock,
                 'unit' => $req->unit,
                 'new' => $req->new
@@ -61,7 +62,7 @@ class ProductsController extends Controller
             // Return Json Response
             return response()->json([
                 'message' => "Type of product created successfully!",
-                'image' => $base64Data
+                // 'image' => $base64Data
             ],200);
             } catch (\Exception $e) {
             // Return Json Response
@@ -148,15 +149,16 @@ class ProductsController extends Controller
             $product->id_type = $req->id_type;
             $product->unit_price = $req->unit_price;
             $product->promotion_price = $req->promotion_price;
+            $product->image = $req->image;
             $product->stock = $req->stock;
             $product->unit = $req->unit;
             $product->new = $req->new;
             
-            if ($req->hasFile('image')) {
-                $image = $req->file('image');
-                $image_base64 = base64_encode(file_get_contents($image));
-                $product->image = $image_base64;
-            }
+            // if ($req->hasFile('image')) {
+            //     $image = $req->file('image');
+            //     $image_base64 = base64_encode(file_get_contents($image));
+            //     $product->image = $image_base64;
+            // }
             // if($req->image) {
             //     // Public storage
             //     $storage = Storage::disk('public');

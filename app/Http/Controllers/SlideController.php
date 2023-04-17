@@ -27,15 +27,15 @@ class SlideController extends Controller
 
             // $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
             // Read image data
-            $imageData = file_get_contents($req->image);
+            // $imageData = file_get_contents($req->image);
 
-            // Convert compressed data to base64
-            $base64Data = base64_encode($imageData);
+            // // Convert compressed data to base64
+            // $base64Data = base64_encode($imageData);
 
             Slide::create([
                 'name' => $req->name,
                 'link' => $req->link,
-                'image' => $base64Data
+                'image' => $req->image
             ]);
 
             // // Save Image in Storage folder
@@ -50,7 +50,7 @@ class SlideController extends Controller
              // Return Json Response
              return response()->json([
                 'message' => "Something went really wrong!",
-                'image' => $base64Data
+                // 'image' => $base64Data
             ],500);
         }
     }
@@ -82,12 +82,13 @@ class SlideController extends Controller
             }
      
             $slide->name = $req->name;
+            $slide->image = $req->image;
 
-            if ($req->hasFile('image')) {
-                $image = $req->file('image');
-                $image_base64 = base64_encode(file_get_contents($image));
-                $slide->image = $image_base64;
-            }
+            // if ($req->hasFile('image')) {
+            //     $image = $req->file('image');
+            //     $image_base64 = base64_encode(file_get_contents($image));
+            //     $slide->image = $image_base64;
+            // }
             
             // if($req->image) {
             //     // Public storage

@@ -1,9 +1,13 @@
 
+lƯU Ý: method put khi test trong post man thì dùng post và ở phần paragam key: _method và value là PUT
+
 Auth API:
-	Login: http://localhost:81/api/auth/login
-	User Profile: http://localhost:81/api/auth/user-profile
-	Refresh: http://localhost:81/api/auth/refresh
-	Log out:http://localhost:81/api/auth/register (Key: name, email, password, password_confirmation)
+	POST: Login: http://localhost:81/api/auth/login
+	GET: User Profile: http://localhost:81/api/auth/user-profile
+	GET: Refresh: http://localhost:81/api/auth/refresh
+	POST: register account: http://localhost:81/api/auth/register (Key: name, email, password, password_confirmation)
+	POST: Logout: http://localhost:81/api/auth/logout
+	PUT: UPDATE USER:  http://localhost:81/api/users/{id}
 
 Product API:
 	GET: Products all:  http://localhost:81/api/products
@@ -23,7 +27,7 @@ Product Type API:
 	PUT: Update product type: http://localhost:81/api/products-type/{id}
 	DELETE: Delete type product: http://localhost:81/api/products-type/{id}
 
-Cart API:
+Cart API: //bỏ
 	GET: show products in cart : http://localhost:81/api/add-to-cart
 	GET: Add product to catrt: http://localhost:81/api/add-to-cart/{id}
 	GET: Delete one item in cart: http://localhost:81/api/detete-item-cart/{id}
@@ -35,13 +39,43 @@ Order Items API:
 	DELETE: delete bill and bill detail :: http://localhost:81/api/delete-bill/{id}
 	Get: get detail bill: http://localhost:81/api/order-update/{id}
 
-FAQs: 
-	GET: all faqs: 
-	Get: detail faqs:
-	Post: add faq:
-	DELETE: delete faq: http://localhost:81/api/faq/13
-	PUT: Update faq: http://localhost:81/api/faq/{id}?_method=PUT
+FAQs API: 
+	GET: all faqs: http://localhost:81/api/faq
+	Get: detail faqs: http://localhost:81/api/faq/{id}
+	Post: add faq: http://localhost:81/api/faq
+	DELETE: delete faq: http://localhost:81/api/faq/{id}
+	PUT: Update faq: http://localhost:81/api/faq/{id}
 
+No nasties API:
+	GET: get 3 information desc: http://localhost:81/api/get-three-nasties (Hùng Anh)
+	GET: get all nasties:  http://localhost:81/api/nasties
+	GET: get nasties detail:  http://localhost:81/api/nasties/{id}
+	POST: add nasties:  http://localhost:81/api/nasties
+	delete: delete nasties by id:  http://localhost:81/api/nasties/{id}
+	put: update nasties by id:  http://localhost:81/api/nasties/{id}
+
+
+Branch:
+	GET: get all branch:  http://localhost:81/api/branch
+	GET: get branch detail:  http://localhost:81/api/branch/{id}
+	POST: add branch:  http://localhost:81/api/branch
+	delete: delete branch by id:  http://localhost:81/api/branch/{id}
+	put: update branch by id:  http://localhost:81/api/branch/{id}
+
+Slide API: 
+	GET: get all slide:  http://localhost:81/api/slide
+	GET: get slide detail:  http://localhost:81/api/slide/{id}
+	POST: add slide:  http://localhost:81/api/slide
+	delete: delete slide by id:  http://localhost:81/api/slide/{id}
+	put: update slide by id:  http://localhost:81/api/slide/{id}
+
+Employee API: 
+	GET: get all employees:  http://localhost:81/api/employees
+	GET: get employees detail include working time:  http://localhost:81/api/employees/{id} //
+	POST: add employees:  http://localhost:81/api/employees
+	delete: delete employees by id:  http://localhost:81/api/employees/{id}
+	put: update employees by id:  http://localhost:81/api/employees/{id}
+	POST: add working time:  http://localhost:81/api/employees/working-time
 
 Search API:
 	Search by key:  http://localhost:81/api/search (key: key)

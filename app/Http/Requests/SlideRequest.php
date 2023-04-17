@@ -24,12 +24,15 @@ class SlideRequest extends FormRequest
         if(request()->isMethod('post')) {
             return [
                 'name' => 'required|string|max:258',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                // 'image' => 'required|image|mimes:jpeg,png,jpg, webp,gif,svg|max:2048',
+                'image' => 'required'
             ];
         } else {
             return [
                 'name' => 'required|string|max:258',
-                'image' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',     
+                // 'image' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',   
+                'image' => 'nullable'
+  
             ];
         }
     }

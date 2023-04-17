@@ -28,7 +28,8 @@ class ProductStoreRequest extends FormRequest
                 'description' => 'nullable|string',
                 'unit_price' => 'required',
                 'promotion_price' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',
+                // 'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',
+                'image' => 'required',
                 'stock' => 'required',
                 'unit' => 'nullable|string',
                 'new' => 'required'

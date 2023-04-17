@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FAQsController;
+use App\Http\Controllers\NoNastiesController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordResetRequestController;
 use App\Http\Controllers\ProductsController;
@@ -44,8 +46,38 @@ Route::post('faq', [FAQsController::class, 'store']);
 Route::delete('faq/{id}', [FAQsController::class, 'destroy']);
 Route::put('faq/{id}', [FAQsController::class, 'update']);
 
+Route::group(['middleware' => 'jwtManager'], function () {
+    Route::post('faq', [FAQsController::class, 'store']);
+    Route::delete('faq/{id}', [FAQsController::class, 'destroy']);
+    Route::put('faq/{id}', [FAQsController::class, 'update']);
+});
 
+//no nasties
+Route::get('get-three-nasties', [NoNastiesController::class, 'index3InFor']);
+Route::get('nasties', [NoNastiesController::class, 'index']);
+Route::get('nasties/{id}', [NoNastiesController::class, 'show']);//detail
+Route::post('nasties', [NoNastiesController::class, 'store']);
+Route::delete('nasties/{id}', [NoNastiesController::class, 'destroy']);
+Route::put('nasties/{id}', [NoNastiesController::class, 'update']);
 
+Route::group(['middleware' => 'jwtManager'], function () {
+    Route::post('nasties', [NoNastiesController::class, 'store']);
+    Route::delete('nasties/{id}', [NoNastiesController::class, 'destroy']);
+    Route::put('nasties/{id}', [NoNastiesController::class, 'update']);
+});
+
+//branch
+Route::get('branch', [BranchController::class, 'index']);
+Route::get('branch/{id}', [BranchController::class, 'show']);//detail
+// Route::post('branch', [BranchController::class, 'store']);
+// Route::delete('branch/{id}', [BranchController::class, 'destroy']);
+// Route::put('branch/{id}', [BranchController::class, 'update']);
+
+Route::group(['middleware' => 'jwtManager'], function () {
+    Route::post('branch', [BranchController::class, 'store']);
+    Route::delete('branch/{id}', [BranchController::class, 'destroy']);
+    Route::put('branch/{id}', [BranchController::class, 'update']);
+});
 
 // Route::middleware('auth:api')->group(function () {
 //     Route::post('/cancel-order-item', [CartController::class, 'cancelOrderItem'])->middleware('api_except_csrf');
@@ -57,16 +89,28 @@ Route::put('faq/{id}', [FAQsController::class, 'update']);
 //products
 Route::get('products', [ProductsController::class, 'Index']);
 Route::get('products/{id}', [ProductsController::class, 'show']); //product-detail
-Route::post('products', [ProductsController::class, 'store']);
-Route::put('products/{id}', [ProductsController::class, 'update']);
-Route::delete('products/{id}', [ProductsController::class, 'destroy']);
+// Route::post('products', [ProductsController::class, 'store']);
+// Route::put('products/{id}', [ProductsController::class, 'update']);
+// Route::delete('products/{id}', [ProductsController::class, 'destroy']);
+
+Route::group(['middleware' => 'jwtManager'], function () {
+    Route::post('products', [ProductsController::class, 'store']);
+    Route::put('products/{id}', [ProductsController::class, 'update']);
+    Route::delete('products/{id}', [ProductsController::class, 'destroy']);
+});
 
 //type product
 Route::get("products-type", [ProductsTypeController::class, 'index']);
 Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
-Route::post("products-type", [ProductsTypeController::class, 'store']);
-Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
-Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
+// Route::post("products-type", [ProductsTypeController::class, 'store']);
+// Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
+// Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
+
+Route::group(['middleware' => 'jwtManager'], function () {
+    Route::post("products-type", [ProductsTypeController::class, 'store']);
+    Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
+    Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
+});
 
 //cart
 // Route::middleware('cart')->group(function () {
@@ -93,14 +137,16 @@ Route::get("search",[PageController::class, "getSearch"]);
 //slide
 Route::get('slide', [SlideController::class, 'index']);
 Route::get('slide/{id}', [SlideController::class, 'show']); //slide detail
-
-
-// Route::post('slide', [SlideController::class, 'store']);
-Route::put('slide/{id}',[SlideController::class, 'update']);
-Route::delete('slide/{id}', [SlideController::class, 'destroy']);
+// // Route::post('slide', [SlideController::class, 'store']);
+// Route::put('slide/{id}',[SlideController::class, 'update']);
+// Route::delete('slide/{id}', [SlideController::class, 'destroy']);
 
 Route::group(['middleware' => 'jwtManager'], function () {
+    // Route::get('slide', [SlideController::class, 'index']);
+    // Route::get('slide/{id}', [SlideController::class, 'show']); //slide detail
     Route::post('slide', [SlideController::class, 'store']);
+    Route::put('slide/{id}',[SlideController::class, 'update']);
+    Route::delete('slide/{id}', [SlideController::class, 'destroy']);
 });
 
 // Route::middleware('auth:api')->group(function () {
@@ -118,14 +164,23 @@ Route::delete('/orders/{id}/items/{itemId}', [CartController::class, 'cancelOrde
 // Route::delete('/orders/{id}/items/{itemId}', 'OrderController@cancelOrderItem');
 Route::post('/login-adminid', [AuthController::class, 'loginAdmin']);
 
+Route::group(['middleware' => 'jwtManager'], function () {
+    Route::get('/employees', [EmployeeController::class, 'index']);
+    Route::post('/employees', [EmployeeController::class, 'store']);
+    Route::get('/employees/{id}', [EmployeeController::class, 'show']);
+    Route::put('/employees/{id}', [EmployeeController::class, 'update']);
+    Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
+    // Route::post('/employees/calculate-working-time', [EmployeeController::class, 'calculateWorkingTime']);
+    Route::post('/employees/working-time', [EmployeeController::class, 'addWorkingTime']);
+});
 
-Route::get('/employees', [EmployeeController::class, 'index']);
-Route::post('/employees', [EmployeeController::class, 'store']);
-Route::get('/employees/{id}', [EmployeeController::class, 'show']);
-Route::put('/employees/{id}', [EmployeeController::class, 'update']);
-Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
-Route::post('/employees/calculate-working-time', [EmployeeController::class, 'calculateWorkingTime']);
-Route::post('/employees/working-time', [EmployeeController::class, 'addWorkingTime']);
+// Route::get('/employees', [EmployeeController::class, 'index']);
+// Route::post('/employees', [EmployeeController::class, 'store']);
+// Route::get('/employees/{id}', [EmployeeController::class, 'show']);
+// Route::put('/employees/{id}', [EmployeeController::class, 'update']);
+// Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
+// // Route::post('/employees/calculate-working-time', [EmployeeController::class, 'calculateWorkingTime']);
+// Route::post('/employees/working-time', [EmployeeController::class, 'addWorkingTime']);
 
 
 
@@ -156,6 +211,7 @@ Route::get('/cart', [CartController::class, 'showCart']);
 
 Route::delete('order-items/{id}', [CartController::class, 'cancelOrderItem']);
 Route::delete('delete-bill/{id}', [CartController::class,'deleteBill']);//ok
+
 
 
 Route::group([

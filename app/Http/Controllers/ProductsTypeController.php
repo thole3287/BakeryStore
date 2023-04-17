@@ -75,12 +75,12 @@ class ProductsTypeController extends Controller
     
             $product->name = $req->name;
             $product->description = $req->description;
-            
-            if ($req->hasFile('image')) {
-                $image = $req->file('image');
-                $image_base64 = base64_encode(file_get_contents($image));
-                $product->image = $image_base64;
-            }
+            $product->image = $req->image;
+            // if ($req->hasFile('image')) {
+            //     $image = $req->file('image');
+            //     $image_base64 = base64_encode(file_get_contents($image));
+            //     $product->image = $image_base64;
+            // }
     
             // Update Product
             $product->save();
