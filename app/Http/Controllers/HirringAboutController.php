@@ -37,14 +37,14 @@ class HirringAboutController extends Controller
     {
         try {
             
-            $imageData = file_get_contents($request->image);
-            // Convert compressed data to base64
-            $base64Data = base64_encode($imageData);
+            // $imageData = file_get_contents($request->image);
+            // // Convert compressed data to base64
+            // $base64Data = base64_encode($imageData);
             HirringAbout::create([
                 'title' => $request->title,
                 'description' =>  $request->description,
-                // 'image' => $request->image
-                'image' =>  $base64Data
+                'image' => $request->image
+                // 'image' =>  $base64Data
 
             ]);
     

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\CancelOrder;
 use App\Models\Bill_detail;
 use App\Models\Bills;
 use Illuminate\Support\Facades\Session;
@@ -81,10 +83,11 @@ class CartController extends Controller
             $detail->delete();
         }
 
-        $bill->delete();
 
-        //  // Send an email announcing the cancellation of the order
-        // Mail::to($user->email)->send(new CancelOrder($bill));
+        // //  // Send an email announcing the cancellation of the order
+        Mail::to($user->email)->send(new CancelOrder($bill));
+
+        $bill->delete();
 
 
         return response()->json(['message' => 'Bill deleted successfully'], 200);

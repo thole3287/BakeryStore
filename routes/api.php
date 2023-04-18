@@ -8,6 +8,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DescriptionOfAboutController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FAQsController;
+use App\Http\Controllers\ForteController;
 use App\Http\Controllers\HirringAboutController;
 use App\Http\Controllers\NoNastiesController;
 use App\Http\Controllers\OurKitchenController;
@@ -46,9 +47,9 @@ Route::get("selling-products", [PageController::class, "sellingProducts"]);
 //FAQs
 Route::get('faq', [FAQsController::class, 'index']);
 Route::get('faq/{id}', [FAQsController::class, 'show']);//detail
-Route::post('faq', [FAQsController::class, 'store']);
-Route::delete('faq/{id}', [FAQsController::class, 'destroy']);
-Route::put('faq/{id}', [FAQsController::class, 'update']);
+// Route::post('faq', [FAQsController::class, 'store']);
+// Route::delete('faq/{id}', [FAQsController::class, 'destroy']);
+// Route::put('faq/{id}', [FAQsController::class, 'update']);
 
 Route::group(['middleware' => 'jwtManager'], function () {
     Route::post('faq', [FAQsController::class, 'store']);
@@ -60,9 +61,9 @@ Route::group(['middleware' => 'jwtManager'], function () {
 Route::get('get-three-nasties', [NoNastiesController::class, 'index3InFor']);
 Route::get('nasties', [NoNastiesController::class, 'index']);
 Route::get('nasties/{id}', [NoNastiesController::class, 'show']);//detail
-Route::post('nasties', [NoNastiesController::class, 'store']);
-Route::delete('nasties/{id}', [NoNastiesController::class, 'destroy']);
-Route::put('nasties/{id}', [NoNastiesController::class, 'update']);
+// Route::post('nasties', [NoNastiesController::class, 'store']);
+// Route::delete('nasties/{id}', [NoNastiesController::class, 'destroy']);
+// Route::put('nasties/{id}', [NoNastiesController::class, 'update']);
 
 Route::group(['middleware' => 'jwtManager'], function () {
     Route::post('nasties', [NoNastiesController::class, 'store']);
@@ -194,6 +195,30 @@ Route::group(['middleware' => 'jwtManager'], function () {
     Route::put('hirring/{id}',[HirringAboutController::class, 'update']);
     Route::delete('hirring/{id}', [HirringAboutController::class, 'destroy']);
 });
+
+/// we are forte
+Route::get('forte', [ForteController::class, 'index']);
+Route::get('forte/{id}', [ForteController::class, 'show']); //forte detail
+Route::get('get-three-forte', [ForteController::class, 'get3InFor']);
+Route::group(['middleware' => 'jwtManager'], function () {
+    // Route::get('forte', [ForteController::class, 'index']);
+    // Route::get('forte/{id}', [ForteController::class, 'show']); //forte detail
+    Route::post('forte', [ForteController::class, 'store']);
+    Route::put('forte/{id}',[ForteController::class, 'update']);
+    Route::delete('forte/{id}', [ForteController::class, 'destroy']);
+});
+
+/// we are about-baker
+Route::get('about-baker', [DescriptionOfAboutController::class, 'index']);
+Route::get('about-baker/{id}', [DescriptionOfAboutController::class, 'show']); //about-baker detail
+Route::group(['middleware' => 'jwtManager'], function () {
+    // Route::get('about-baker', [DescriptionOfAboutController::class, 'index']);
+    // Route::get('about-baker/{id}', [DescriptionOfAboutController::class, 'show']); //about-baker detail
+    Route::post('about-baker', [DescriptionOfAboutController::class, 'store']);
+    Route::put('about-baker/{id}',[DescriptionOfAboutController::class, 'update']);
+    Route::delete('about-baker/{id}', [DescriptionOfAboutController::class, 'destroy']);
+});
+
 
 
 // Route::middleware('auth:api')->group(function () {

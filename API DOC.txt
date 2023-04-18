@@ -1,5 +1,7 @@
 
 lƯU Ý: method put khi test trong post man thì dùng post và ở phần params key: _method và value là PUT
++ Đăng nhập bằng tài khoản thole3287@gmail.com pass: 1234567
++ lấy token đó ms có thể thao tác thêm sửa xóa
 
 Auth API:
 	POST: Login: http://localhost:81/api/auth/login
@@ -54,6 +56,14 @@ No nasties API:
 	delete: delete nasties by id:  http://localhost:81/api/nasties/{id}
 	put: update nasties by id:  http://localhost:81/api/nasties/{id}
 
+Forte API:
+	GET: get 3 information desc: http://localhost:81/api/get-three-forte (Hùng Anh)
+	GET: get all forte:  http://localhost:81/api/forte
+	GET: get forte detail:  http://localhost:81/api/forte/{id}
+	POST: add forte:  http://localhost:81/api/forte
+	delete: delete forte by id:  http://localhost:81/api/forte/{id}
+	put: update forte by id:  http://localhost:81/api/forte/{id}
+
 
 Branch:
 	GET: get all branch:  http://localhost:81/api/branch
@@ -61,6 +71,13 @@ Branch:
 	POST: add branch:  http://localhost:81/api/branch
 	delete: delete branch by id:  http://localhost:81/api/branch/{id}
 	put: update branch by id:  http://localhost:81/api/branch/{id}
+
+About Baker:
+	GET: get all about-baker:  http://localhost:81/api/about-baker
+	GET: get about-baker detail:  http://localhost:81/api/about-baker/{id}
+	POST: add about-baker:  http://localhost:81/api/about-baker
+	delete: delete about-baker by id:  http://localhost:81/api/about-baker/{id}
+	put: update about-baker by id:  http://localhost:81/api/about-baker/{id}
 
 Slide API: 
 	GET: get all slide:  http://localhost:81/api/slide

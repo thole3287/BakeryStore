@@ -23,9 +23,7 @@ class SlideController extends Controller
 
     public function store(SlideRequest $req)
     {
-        try {
-
-            // $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
+          // $imageName = Str::random(32).".".$req->image->getClientOriginalExtension();
             // Read image data
             // $imageData = file_get_contents($req->image);
 
@@ -36,6 +34,8 @@ class SlideController extends Controller
                 'name' => $req->name,
                 'link' => $req->link,
                 'image' => $req->image
+                // 'image' => $base64Data
+
             ]);
 
             // // Save Image in Storage folder
@@ -46,13 +46,16 @@ class SlideController extends Controller
             return response()->json([
                 'message' => "Slide successfully created."
             ],200);
-        } catch (\Exception $e) {
-             // Return Json Response
-             return response()->json([
-                'message' => "Something went really wrong!",
-                // 'image' => $base64Data
-            ],500);
-        }
+        // try {
+
+          
+        // } catch (\Exception $e) {
+        //      // Return Json Response
+        //      return response()->json([
+        //         'message' => "Something went really wrong!",
+        //         // 'image' => $base64Data
+        //     ],500);
+        // }
     }
     public function show($id)
     {
