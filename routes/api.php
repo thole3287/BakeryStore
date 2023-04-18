@@ -111,14 +111,15 @@ Route::group(['middleware' => 'jwtManager'], function () {
 // Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
 // Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
 
-Route::group(['middleware' => 'jwtStaff'], function () {
-    Route::get("products-type", [ProductsTypeController::class, 'index']);
-    Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
-});
-
+// Route::group(['middleware' => 'jwtStaff'], function () {
+//     Route::get("products-type", [ProductsTypeController::class, 'index']);
+//     Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
+// });
+Route::get("products-type", [ProductsTypeController::class, 'index']);
+Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -de
 Route::group(['middleware' => 'jwtManager'], function () {
-    Route::get("products-type", [ProductsTypeController::class, 'index']);
-    Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
+    // Route::get("products-type", [ProductsTypeController::class, 'index']);
+    // Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
     Route::post("products-type", [ProductsTypeController::class, 'store']);
     Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
     Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
