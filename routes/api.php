@@ -256,6 +256,7 @@ Route::get('about-discription/{id}', [DescriptionOfAboutController::class, 'show
 
 
 Route::get('customer', [CustomerController::class, 'index']);
+Route::get('customer/{id}', [CustomerController::class, 'show']);
 Route::put('customer/{id}', [CustomerController::class, 'update']);
 Route::delete('customer/{id}', [CustomerController::class, 'destroy']);
 

@@ -31,6 +31,12 @@ Product Type API:
 	PUT: Update product type: http://localhost:81/api/products-type/{id}
 	DELETE: Delete type product: http://localhost:81/api/products-type/{id}
 
+Customer
+	GET: all customer:  http://localhost:81/api/customer
+	GET: Customer detail: http://localhost:81/api/customer/{id}
+	PUT: Update customer: http://localhost:81/api/customer/{id}
+	DELETE: http://localhost:81/api/customer/{id}
+
 Cart API: //bỏ
 	GET: show products in cart : http://localhost:81/api/add-to-cart
 	GET: Add product to catrt: http://localhost:81/api/add-to-cart/{id}
