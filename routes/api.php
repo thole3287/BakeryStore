@@ -118,6 +118,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 // });
 Route::get("products-type", [ProductsTypeController::class, 'index']);
 Route::get("products-type/{id}",[ProductsTypeController::class, "show"]); //product type -de
+Route::get("get-all-products-in-category/{id}",[ProductsTypeController::class, "getAllProductInCategory"]); //product type -de
 Route::group(['middleware' => 'jwtManager'], function () {
     // Route::get("products-type", [ProductsTypeController::class, 'index']);
     // Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail

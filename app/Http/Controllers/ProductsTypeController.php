@@ -22,7 +22,17 @@ class ProductsTypeController extends Controller
     public function show($id)
     {
         // $productsByType = Products::where('id_type','=', $type_id)->get();
-        $productsByType = Products::find($id);
+        $productsByType = ProductType::find($id);
+
+        return response()->json([
+                    "productByType" => $productsByType
+                    ]);
+    }
+
+    public function getAllProductInCategory($id)
+    {
+        $productsByType = Products::where('id_type','=', $id)->get();
+        // $productsByType = Products::find($id);
 
         return response()->json([
                     "productByType" => $productsByType

@@ -27,6 +27,7 @@ Product API:
 Product Type API:
 	GET: show all product type: http://localhost:81/api/products-type
 	GET: Product type detail: http://localhost:81/api/products-type/{id}
+	Get: get all product in category:  http://localhost:81/api/get-all-products-in-category/{id}
 	POST: Add product type: http://localhost:81/api/products-type
 	PUT: Update product type: http://localhost:81/api/products-type/{id}
 	DELETE: Delete type product: http://localhost:81/api/products-type/{id}
