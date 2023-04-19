@@ -3,6 +3,8 @@ lƯU Ý: method put khi test trong post man thì dùng post và ở phần param
 + Đăng nhập bằng tài khoản thole3287@gmail.com pass: 1234567
 + lấy token đó ms có thể thao tác thêm sửa xóa
 
+
+
 Auth API:
 	POST: Login: http://localhost:81/api/auth/login
 	GET: User Profile: http://localhost:81/api/auth/user-profile
@@ -24,7 +26,7 @@ Product API:
 
 Product Type API:
 	GET: show all product type: http://localhost:81/api/products-type
-	GET: Product type detail: http://localhost:81/api/products-type/{type_id}
+	GET: Product type detail: http://localhost:81/api/products-type/{id}
 	POST: Add product type: http://localhost:81/api/products-type
 	PUT: Update product type: http://localhost:81/api/products-type/{id}
 	DELETE: Delete type product: http://localhost:81/api/products-type/{id}

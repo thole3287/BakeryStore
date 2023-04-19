@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DescriptionOfAboutController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FAQsController;
@@ -116,7 +117,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 //     Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
 // });
 Route::get("products-type", [ProductsTypeController::class, 'index']);
-Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -de
+Route::get("products-type/{id}",[ProductsTypeController::class, "show"]); //product type -de
 Route::group(['middleware' => 'jwtManager'], function () {
     // Route::get("products-type", [ProductsTypeController::class, 'index']);
     // Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
@@ -253,6 +254,10 @@ Route::get('about-discription/{id}', [DescriptionOfAboutController::class, 'show
 // Route::post('about-discription', [DescriptionOfAboutController::class, 'store']);
 // Route::put('about-discription/{id}', [DescriptionOfAboutController::class, 'update']);
 
+
+Route::get('customer', [CustomerController::class, 'index']);
+Route::put('customer/{id}', [CustomerController::class, 'update']);
+Route::delete('customer/{id}', [CustomerController::class, 'destroy']);
 
 
 

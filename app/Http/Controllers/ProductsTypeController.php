@@ -19,9 +19,11 @@ class ProductsTypeController extends Controller
             ]);
     }
 
-    public function show($type_id)
+    public function show($id)
     {
-        $productsByType = Products::where('id_type','=', $type_id)->get();
+        // $productsByType = Products::where('id_type','=', $type_id)->get();
+        $productsByType = Products::find($id);
+
         return response()->json([
                     "productByType" => $productsByType
                     ]);
