@@ -29,7 +29,7 @@ class TypeOfProductRequest extends FormRequest
                 'description' => 'required|string',
                 'unit_price' => 'required',
                 'promotion_price' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',
+                'image' => 'required',
                 'stock' => 'required',
                 'unit' => 'nullable|string',
                 'new' => 'required'
@@ -41,7 +41,7 @@ class TypeOfProductRequest extends FormRequest
                 'description' => 'required|string',
                 'unit_price' => 'required',
                 'promotion_price' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif,svg|max:2048',     
+                'image' => 'nullable',     
                 'stock' => 'required',          
                 'unit' => 'nullable|string',
                 'new' => 'required'

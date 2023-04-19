@@ -47,27 +47,21 @@ class CartController extends Controller
 
         return response()->json(compact("bill", "customer", "billDetail"));
     }
+    public function sendOrderCancellationEmail($bill)
+    {
+        $customer = $bill->customer;
+        $items = $bill->bill_detail;
 
-    // public function delete($id)
-    // {
-    //     $bill = Bills::find($id);
-
-    //     if (!$bill) {
-    //         return response()->json(['message' => 'Bill not found'], 404);
-    //     }
-
-    //     $bill->delete();
-
-    //     return response()->json(['message' => 'Bill deleted successfully'], 200);
-    // }
+        Mail::to($customer->email)->send(new CancelOrder($customer, $items));
+    }
 
     public function deleteBill($id)
     {
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
-        } catch (JWTException $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to authenticate token.']);
-        }
+        // try {
+        //     $user = JWTAuth::parseToken()->authenticate();
+        // } catch (JWTException $e) {
+        //     return response()->json(['success' => false, 'message' => 'Failed to authenticate token.']);
+        // }
         $bill = Bills::find($id);
 
         if (!$bill) {
@@ -80,52 +74,15 @@ class CartController extends Controller
             $product = Products::find($detail->id_product);
             $product->stock += $detail->quantity;
             $product->save();
-            $detail->delete();
         }
 
-
-        // //  // Send an email announcing the cancellation of the order
-        Mail::to($user->email)->send(new CancelOrder($bill));
+        // Send cancellation email
+        $this->sendOrderCancellationEmail($bill);
 
         $bill->delete();
 
-
-        return response()->json(['message' => 'Bill deleted successfully'], 200);
+        return response()->json(['message' => 'Bill cancelled successfully'], 200);
     }
-
-    // public function deleteBills($id)
-    // {
-    //     $bill = Bills::find($id);
-
-    //     if (!$bill) {
-    //         return response()->json(['message' => 'Bill not found'], 404);
-    //     }
-
-    //     $billDetail = Bill_detail::where('id_bill', '=', $bill->id)->delete();
-    //     $bill->delete();
-
-    //     return response()->json(['message' => 'Bill and its details deleted successfully']);
-    // }
-
-    // public function delete($id)
-    // {
-    //     $bill = Bills::find($id);
-
-    //     if (!$bill) {
-    //         return response()->json(['message' => 'Bill not found'], 404);
-    //     }
-
-    //     // Bill_detail::where('id_bill', $bill->id)->delete(); // delete all bill_detail records associated with the bill
-    //     Bill_detail::where('id_bill', $bill->id)->delete(); // delete all bill_detail records associated with the bill
-
-    //     // Increase product stock
-    //     $product = Products::find($billDetail->id_product);
-    //     $product->stock += $billDetail->quantity;
-    //     $product->save();
-    //     $bill->delete();
-
-    //     return response()->json(['message' => 'Bill and associated details deleted successfully'], 200);
-    // }
 
 
     public function cancelOrderItem($id)
