@@ -3,12 +3,12 @@
     {{-- <input type="hidden" name="token" value="{{ $request->route('token') }}"> --}}
     <input type="hidden" name="token" value="{{ $request->resetToken }}">
 
-    @php dd($request->token) @endphp
+    {{-- @php dd($request->token) @endphp --}}
 
     <div>
         <label for="email">{{ __('Email') }}</label>
-        {{-- <input id="email" type="email" name="email" value="{{ $email ?? old('email') }}" required autofocus> --}}
-        <input id="email" type="email" name="email" value="{{ $request->email }}" required autofocus>
+        <input id="email" type="email" name="email" value="{{ $email ?? old('email') }}" required disabled autofocus>
+        {{-- <input id="email" type="email" name="email" value="{{ $request->email }}" required  autofocus> --}}
 
     </div>
     <div>

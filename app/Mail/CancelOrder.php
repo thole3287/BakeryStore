@@ -19,13 +19,16 @@ class CancelOrder extends Mailable
     public $customer;
     public $items;
 
+    public $bill;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(Customer $customer, $items)
+    public function __construct(Customer $customer, $items, Bills $bill)
     {
         $this->customer = $customer;
         $this->items = $items;
+        $this->bill = $bill;
     }
 
     /**

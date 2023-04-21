@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator; 
 
 
@@ -17,8 +18,54 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','send-password-reset-link']]);
     }
+
+    public function changePassword(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        // Get the user
+        $user = $request->user();
+
+        // Verify the current password
+        if (!Hash::check($request->input('current_password'), $user->password)) {
+            return response()->json(['error' => 'Current password does not match.'], 400);
+        }
+
+        // Update the password
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        return response()->json(['message' => 'Password updated successfully.'], 200);
+    }
+
+
+    // public function changePassword(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $validator = Validator::make($request->all(), [
+    //         'old_password' => 'required',
+    //         'new_password' => 'required|string|min:6|confirmed',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json(['error' => $validator->errors()], 422);
+    //     }
+
+    //     if (!Hash::check($request->old_password, $user->password)) {
+    //         return response()->json(['error' => 'Invalid old password'], 401);
+    //     }
+
+    //     $user->password = Hash::make($request->new_password);
+    //     $user->save();
+
+    //     return response()->json(['success' => 'Password updated successfully'], 200);
+    // }
     public function loginAdmin(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -92,7 +139,6 @@ class AuthController extends Controller
             return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
         }
         $user->name = $request->input('name');
-        // $user->email = $request->input('email');
         $user->phone = $request->input('phone');
         $user->address = $request->input('address');
         $user->save();
@@ -109,9 +155,25 @@ class AuthController extends Controller
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
+        ],[
+            'name.required' => 'Name is required!',
+            'name.string' => 'Name is string!',
+            'name.between' => 'Name must be between 2 to 100 letters!',
+            'email.required' => 'Email is required!',
+            'email.string' => 'Email is string!',
+            'email.email' => 'Email must be in the correct format!',
+            'email.max' => 'Maximum email length is 100 letters',
+            'email.unique' => 'This email already exists on the system!',
+            'password.required' => 'Password is required!',
+            'password.string' => 'Password is string!',
+            'password.confirmed' => 'Confirm password is incorrect!',
+            'password.min' => 'Minimum password length is 6 letters',
         ]);
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+        // if($validator->fails()){
+        //     return response()->json($validator->errors()->toJson(), 400);
+        // }
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
         }
         $user = User::create(array_merge(
                     $validator->validated(),

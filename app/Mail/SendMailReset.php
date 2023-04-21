@@ -44,7 +44,7 @@ class SendMailReset extends Mailable
     // }
     public function build()
     {
-        return $this->markdown('emails.reset')->with([
+        return $this->markdown('emails.passwordResetMail')->with([
             'token' => $this->token,
             'email' => $this->email,
             // 'url' => $this->token

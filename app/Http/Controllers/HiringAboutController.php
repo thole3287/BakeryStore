@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HirringAbout;
 use Illuminate\Http\Request;
 
-class HirringAboutController extends Controller
+class HiringAboutController extends Controller
 {
     public function index()
     {

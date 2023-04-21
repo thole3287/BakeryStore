@@ -117,12 +117,12 @@ Position API:
 	delete: delete position by id:  http://localhost:81/api/position/{id}
 	put: update position by id:  http://localhost:81/api/position/{id}
 
-Hirring API: 
-	GET: get all hirring:  http://localhost:81/api/hirring
-	GET: get hirring detail:  http://localhost:81/api/hirring/{id}
-	POST: add hirring:  http://localhost:81/api/hirring
-	delete: delete hirring by id:  http://localhost:81/api/hirring/{id}
-	put: update hirring by id:  http://localhost:81/api/hirring/{id}
+Hiring API: 
+	GET: get all hiring:  http://localhost:81/api/hiring
+	GET: get hiring detail:  http://localhost:81/api/hiring/{id}
+	POST: add hiring:  http://localhost:81/api/hiring
+	delete: delete hiring by id:  http://localhost:81/api/hiring/{id}
+	put: update hiring by id:  http://localhost:81/api/hiring/{id}
 
 About Cake API: 
 	GET: get all about cakes:  http://localhost:81/api/about-discription

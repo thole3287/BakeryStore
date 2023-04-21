@@ -13,7 +13,7 @@ class Bills extends Model
     public $timestamps = false;
     public function bill_detail()
     {
-        return $this->hasMany(Bill_detail::class, "id_bill","id");
+        return $this->hasMany(Bill_detail::class, "id_bill", "id");
     }
     public function customer()
     {

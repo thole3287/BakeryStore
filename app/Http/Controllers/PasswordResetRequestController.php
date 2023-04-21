@@ -26,7 +26,7 @@ class PasswordResetRequestController extends Controller
     public function send($email)  //this is a function to send mail 
     {
         $token = $this->createToken($email);
-        Mail::to($email)->send(new SendMailReset($token, $email));  // token is important in send mail 
+        Mail::to($email)->send(new SendMailreset($token, $email));  // token is important in send mail 
     }
 
     public function createToken($email)  // this is a function to get your request email that there are or not to send mail
@@ -34,47 +34,18 @@ class PasswordResetRequestController extends Controller
         $oldToken = DB::table('password_reset_tokens')->where('email', $email)->first();
 
         if ($oldToken) {
-            return url('/reset-password/'.$oldToken->token);
+            return $oldToken->token;
         }
 
         $token = Str::random(40);
         $this->saveToken($token, $email);
-        return url('/reset-password/'.$token);
-        // return $token;
-        // $url = "http://localhost:81/reset-password/" . $token;
-        // return $url;
+        return $token;
     }
-
-    public function showResetForm($token, Request $request)
-    {
-        $resetToken = DB::table('password_reset_tokens')->where('token', $token)->first();
-        
-        if (!$resetToken) {
-            abort(404);
-        }
-        // $url = url('/reset-password/' . $resetToken->token);
-
-
-        return view('emails.resetPass', ['email' => $resetToken->email, 'request' => $request]);
-    }
-
-    // public function createToken($email)  // this is a function to get your request email that there are or not to send mail
-    // {
-    //     $oldToken = DB::table('password_reset_tokens')->where('email', $email)->first();
-
-    //     if ($oldToken) {
-    //         return $oldToken->token;
-    //     }
-
-    //     $token = Str::random(40);
-    //     $this->saveToken($token, $email);
-    //     return $token;
-    // }
 
 
     public function saveToken($token, $email)  // this function save new password
     {
-        DB::table('password_reset_tokens')->insert([
+        DB::table('password_resets')->insert([
             'email' => $email,
             'token' => $token,
             'created_at' => Carbon::now()
@@ -101,4 +72,21 @@ class PasswordResetRequestController extends Controller
             'data' => 'Reset Email is send successfully, please check your inbox.'
         ], Response::HTTP_OK);
     }
+
+    // public function showResetForm($token, Request $request)
+    // {
+    //     $resetToken = DB::table('password_reset_tokens')->where('token', $token)->first();
+        
+    //     if (!$resetToken) {
+    //         abort(404);
+    //     }
+    //     // $url = url('/reset-password/' . $resetToken->token);
+
+
+    //     return view('emails.resetPass', ['email' => $resetToken->email, 'request' => $request]);
+    // }
+
+
+
+
 }

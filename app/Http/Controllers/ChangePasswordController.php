@@ -33,9 +33,9 @@ class ChangePasswordController extends Controller
           // find email
           $userData = User::whereEmail($request->email)->first();
 
-          if (!$userData) {
-            return response()->view('emails.404');
-          }
+          // if (!$userData) {
+          //   return response()->view('emails.404');
+          // }
           // update password
           $userData->update([
             'password'=>bcrypt($request->password)

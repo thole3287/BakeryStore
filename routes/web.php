@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('reset-password/{token}', [PasswordResetRequestController::class, 'showResetForm'])->name('password.reset');
+// Route::get('reset-password/{token}', [PasswordResetRequestController::class, 'showResetForm'])->name('password.reset');

@@ -195,7 +195,7 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="space-y-4">
-                                                        <h1 class="text-4xl fw-800" style="padding-top: 0; padding-bottom: 0; font-weight: 800 !important; vertical-align: baseline; font-size: 36px; line-height: 43.2px; margin: 0;" align="left">Thanks for your order, Josh</h1>
+                                                        <h1 class="text-4xl fw-800" style="padding-top: 0; padding-bottom: 0; font-weight: 800 !important; vertical-align: baseline; font-size: 36px; line-height: 43.2px; margin: 0;" align="left">Order Cancellation Confirmation</h1>
                                                         <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                                             <tbody>
                                                                 <tr>
@@ -205,7 +205,7 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <p class="" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">The estimated delivery time for your order is 6:10 PM - 6:20 PM. Track your order on the Hip Corp website.</p>
+                                                        <p class="" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">Dear {{ $customer->name }}, <br> Your order has been cancelled successfully. <br> The following items will not be shipped:</p>
                                                         <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                                             <tbody>
                                                                 <tr>
@@ -215,15 +215,15 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <table class="btn btn-red-500 rounded-full px-6 w-full w-lg-48" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 9999px; border-collapse: separate !important; width: 192px;" width="192">
+                                                        <!-- <table class="btn btn-red-500 rounded-full px-6 w-full w-lg-48" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 9999px; border-collapse: separate !important; width: 192px;" width="192">
                                                             <tbody>
                                                                 <tr>
                                                                     <td style="line-height: 24px; font-size: 16px; border-radius: 9999px; width: 192px; margin: 0;" align="center" bgcolor="#dc3545" width="192">
-                                                                        <a href="https://app.bootstrapemail.com/templates" style="color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 9999px; line-height: 20px; display: block; font-weight: normal; white-space: nowrap; background-color: #dc3545; padding: 8px 24px; border: 1px solid #dc3545;">Track Your Order</a>
+                                                                        <a href="#" style="color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 9999px; line-height: 20px; display: block; font-weight: normal; white-space: nowrap; background-color: #dc3545; padding: 8px 24px; border: 1px solid #dc3545;">Track Your Order</a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
-                                                        </table>
+                                                        </table> -->
                                                     </div>
                                                     <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                                         <tbody>
@@ -238,30 +238,36 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="line-height: 24px; font-size: 16px; width: 100%; border-radius: 24px; margin: 0; padding: 40px;" align="left" bgcolor="#ffffff">
-                                                                    <h3 class="text-center" style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;" align="center">Receipt from HipCorp</h3>
-                                                                    <p class="text-center text-muted" style="line-height: 24px; font-size: 16px; color: #718096; width: 100%; margin: 0;" align="center">Receipt #ABCD-EFGH</p>
+                                                                    <h3 class="text-center" style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;" align="center">Cancellation receipt from Bakery Store</h3>
+                                                                    <p class="text-center text-muted" style="line-height: 24px; font-size: 16px; color: #718096; width: 100%; margin: 0;" align="center">Receipt #{{ $bill->id }}</p>
                                                                     <table class="p-2 w-full" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Cool Sunglasses</td>
-                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">$10.00</td>
+                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Product</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">Quantity</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">Price</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">Total Price</td>
+
                                                                             </tr>
+
                                                                             <tr>
-                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Trucker Hat</td>
-                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">$12.00</td>
+                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">{{ $item->product->name }}</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{ $item->quantity }}</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{ $item->unit_price }}đ</td>
+                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">{{ $item->quantity * $item->unit_price }}đ</td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="left" width="100%">Sunflower Seeds</td>
-                                                                                <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px;" align="right" width="100%">$20.00</td>
-                                                                            </tr>
-                                                                            <tr>
+
+                                                                            <!-- <tr>
                                                                                 <td class="fw-700 border-top" style="line-height: 24px; font-size: 16px; border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important; width: 100%; font-weight: 700 !important; margin: 0; padding: 8px;" align="left"
                                                                                     width="100%">Amount paid</td>
                                                                                 <td class="fw-700 text-right border-top" style="line-height: 24px; font-size: 16px; border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important; width: 100%; font-weight: 700 !important; margin: 0; padding: 8px;"
-                                                                                    align="right" width="100%">$42.00</td>
-                                                                            </tr>
+                                                                                    align="right" width="100%">&nbsp;</td>
+                                                                                <td class="fw-700 text-right border-top" style="line-height: 24px; font-size: 16px; border-top-width: 1px !important; border-top-color: #e2e8f0 !important; border-top-style: solid !important; width: 100%; font-weight: 700 !important; margin: 0; padding: 8px;"
+                                                                                    align="right" width="100%">{{ number_format($bill->total) }}đ</td>
+                                                                            </tr> -->
                                                                         </tbody>
                                                                     </table>
+
                                                                     <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                                                         <tbody>
                                                                             <tr>

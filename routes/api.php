@@ -10,8 +10,9 @@ use App\Http\Controllers\DescriptionOfAboutController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FAQsController;
 use App\Http\Controllers\ForteController;
-use App\Http\Controllers\HirringAboutController;
+use App\Http\Controllers\HiringAboutController;
 use App\Http\Controllers\NoNastiesController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OurKitchenController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordResetRequestController;
@@ -145,6 +146,11 @@ Route::get('order-list', [CartController::class, 'orderList']);
 
 //order item
 Route::post('order-items', [CartController::class, 'orderItems']);
+Route::get("count-user-order/{userId}",[OrderController::class, "countUserOrders"]);
+// Route::get("count-user-order/{id}",[OrderController::class, "getUserBills"]);
+// Route::get("count/{user_id}",[OrderController::class, "getUserOrders"]);
+
+
 
 //search
 Route::get("search",[PageController::class, "getSearch"]);
@@ -188,15 +194,15 @@ Route::group(['middleware' => 'jwtManager'], function () {
     Route::delete('position/{id}', [PositionAboutController::class, 'destroy']);
 });
 
-/// we are hirring
-Route::get('hirring', [HirringAboutController::class, 'index']);
-Route::get('hirring/{id}', [HirringAboutController::class, 'show']); //hirring detail
+/// we are hiring
+Route::get('hiring', [HiringAboutController::class, 'index']);
+Route::get('hiring/{id}', [HiringAboutController::class, 'show']); //hiring detail
 Route::group(['middleware' => 'jwtManager'], function () {
-    // Route::get('hirring', [HirringAboutController::class, 'index']);
-    // Route::get('hirring/{id}', [HirringAboutController::class, 'show']); //hirring detail
-    Route::post('hirring', [HirringAboutController::class, 'store']);
-    Route::put('hirring/{id}',[HirringAboutController::class, 'update']);
-    Route::delete('hirring/{id}', [HirringAboutController::class, 'destroy']);
+    // Route::get('hiring', [HiringAboutController::class, 'index']);
+    // Route::get('hiring/{id}', [HiringAboutController::class, 'show']); //hiring detail
+    Route::post('hiring', [HiringAboutController::class, 'store']);
+    Route::put('hiring/{id}',[HiringAboutController::class, 'update']);
+    Route::delete('hiring/{id}', [HiringAboutController::class, 'destroy']);
 });
 
 /// we are forte
@@ -284,15 +290,14 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
-    Route::post('/login-admin', [AdminController::class, 'identifyUser']);
-    Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);
+    Route::put('/update-password', [AuthController::class, 'changePassword']); //update password user with old password
+    Route::put('/users/{id}', [AuthController::class, 'update']);//update info user
+    // Route::post('/login-admin', [AdminController::class, 'identifyUser']);
+    // Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);
     Route::post('send-password-reset-link', [PasswordResetRequestController::class, 'sendEmail']);
     // Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
     Route::post('/reset-password', [ChangePasswordController::class, 'passwordResetProcess'])->name('password.update');
 
-
-
-    Route::put('/users/{id}', [AuthController::class, 'update']);
 });
 Route::post('cart/{id}', [CartController::class, 'addToCart']);
 Route::get('/cart', [CartController::class, 'showCart']);

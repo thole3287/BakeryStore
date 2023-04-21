@@ -27,6 +27,7 @@ class CartController extends Controller
 
     public function orderList()
     {
+        
         $order = Bills::join('Customer','Customer.id','=', 'bills.id_customer')->get();
         return response()->json([
             'order' => $order,
@@ -52,7 +53,7 @@ class CartController extends Controller
         $customer = $bill->customer;
         $items = $bill->bill_detail;
 
-        Mail::to($customer->email)->send(new CancelOrder($customer, $items));
+        Mail::to($customer->email)->send(new CancelOrder($customer, $items, $bill));
     }
 
     public function deleteBill($id)
