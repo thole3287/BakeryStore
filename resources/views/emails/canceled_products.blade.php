@@ -12,7 +12,7 @@
         body,
         table,
         td {
-            font-family: Helvetica, Arial, sans-serif !important
+            font-family: Arial, Helvetica, Arial, sans-serif !important
         }
         
         .ExternalClass {

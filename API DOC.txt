@@ -49,6 +49,7 @@ Order Items API:
 	POST: Order items  http://localhost:81/api/order-items (key: name, gender, email, address, phone_number, note, payment(là phương thức thanh toán 0 là thanh toán khi nhận hàng 1 là chuyển khoản))
 	DELETE: delete bill and bill detail :: http://localhost:81/api/delete-bill/{id}
 	Get: get detail bill: http://localhost:81/api/order-update/{id}
+	GET: get bill of user: http://localhost:81/api/count-user-order/{userId}
 
 FAQs API: 
 	GET: all faqs: http://localhost:81/api/faq
