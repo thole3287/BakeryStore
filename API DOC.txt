@@ -12,6 +12,8 @@ Auth API:
 	POST: register account: http://localhost:81/api/auth/register (Key: name, email, password, password_confirmation)
 	POST: Logout: http://localhost:81/api/auth/logout
 	PUT: UPDATE USER:  http://localhost:81/api/users/{id}
+	PUT: UPDATE PASSWORD USER:  http://localhost:81/apis/update-password 
+
 
 Product API:
 	GET: Products all:  http://localhost:81/api/products
@@ -98,7 +100,7 @@ Slide API:
 
 Employee API: 
 	GET: get all employees:  http://localhost:81/api/employees
-	GET: get employees detail include working time:  http://localhost:81/api/employees/{id} //
+	GET: get employees detail include working time:  http://localhost:81/api/employees/{id} 
 	POST: add employees:  http://localhost:81/api/employees
 	delete: delete employees by id:  http://localhost:81/api/employees/{id}
 	put: update employees by id:  http://localhost:81/api/employees/{id}

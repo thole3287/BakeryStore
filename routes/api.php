@@ -290,7 +290,7 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
-    Route::put('/update-password', [AuthController::class, 'changePassword']); //update password user with old password
+    Route::put('/change-password', [AuthController::class, 'changePassword']); //update password user with old password
     Route::put('/users/{id}', [AuthController::class, 'update']);//update info user
     // Route::post('/login-admin', [AdminController::class, 'identifyUser']);
     // Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);

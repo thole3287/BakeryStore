@@ -25,7 +25,7 @@ class AuthController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'current_password' => 'required',
+            'old_password' => 'required',
             'password' => 'required|confirmed|min:6',
         ]);
 
@@ -33,7 +33,7 @@ class AuthController extends Controller
         $user = $request->user();
 
         // Verify the current password
-        if (!Hash::check($request->input('current_password'), $user->password)) {
+        if (!Hash::check($request->input('old_password'), $user->password)) {
             return response()->json(['error' => 'Current password does not match.'], 400);
         }
 

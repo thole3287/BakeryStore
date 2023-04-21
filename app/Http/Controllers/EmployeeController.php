@@ -13,7 +13,9 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::with('workingTimes')->get();
+        // $employees = Employee::with('workingTimes')->get();
+        $employees = Employee::all();
+
 
         return response()->json(['data' => $employees]);
     }
@@ -21,6 +23,9 @@ class EmployeeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'age' => 'required|numberic|max:2',
+            'gender' => 'required',
+            'image' => 'required',
             'email' => 'required|unique:employees,email',
             'address' => 'required',
             'phone_number' => 'required',
@@ -77,6 +82,9 @@ class EmployeeController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'age' => 'required|max:2',
+            'gender' => 'required',
+            'image' => 'required',
             'email' => 'required|unique:employees,email,' . $employee->id,
             'address' => 'required',
             'phone_number' => 'required',

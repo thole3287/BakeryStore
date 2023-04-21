@@ -14,6 +14,9 @@ class Employee extends Model
         'job_title',
         'email', 
         'address', 
+        'image',
+        'age',
+        'gender',
         'phone_number'
     ];
     public function workingTimes()
