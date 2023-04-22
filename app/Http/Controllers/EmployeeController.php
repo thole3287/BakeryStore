@@ -172,28 +172,28 @@ class EmployeeController extends Controller
 
 
 
-    // public function addWorkingTime(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'employee_id' => 'required',
-    //         'start_time' => 'required|date_format:Y-m-d H:i:s',
-    //         'end_time' => 'required|date_format:Y-m-d H:i:s',
-    //     ]);
+    public function addWorkingTime(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'employee_id' => 'required',
+            'start_time' => 'required|date_format:Y-m-d H:i:s',
+            'end_time' => 'required|date_format:Y-m-d H:i:s',
+        ]);
 
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()], 400);
-    //     }
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
 
-    //     $employee = Employee::findOrFail($request->input('employee_id'));
+        $employee = Employee::findOrFail($request->input('employee_id'));
 
-    //     $workingTime = new WorkingTime;
-    //     $workingTime->employee_id = $employee->id;
-    //     $workingTime->start_time = Carbon::parse($request->input('start_time'));
-    //     $workingTime->end_time = Carbon::parse($request->input('end_time'));
-    //     $workingTime->save();
+        $workingTime = new WorkingTime;
+        $workingTime->employee_id = $employee->id;
+        $workingTime->start_time = Carbon::parse($request->input('start_time'));
+        $workingTime->end_time = Carbon::parse($request->input('end_time'));
+        $workingTime->save();
 
-    //     return response()->json(['data' => $workingTime]);
-    // }
+        return response()->json(['data' => $workingTime]);
+    }
 
     public function calculateWorkingTime(Request $request)
     {

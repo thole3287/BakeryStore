@@ -113,6 +113,14 @@ Kitchen:
 	delete: delete kitchen by id:  http://localhost:81/api/kitchen/{id}
 	put: update kitchen by id:  http://localhost:81/api/kitchen/{id}
 
+Footer api: 
+	GET: get all footer:  http://localhost:81/api/footer
+	GET: get footer detail:  http://localhost:81/api/footer/{id}
+	POST: add footer:  http://localhost:81/api/footer
+	delete: delete footer by id:  http://localhost:81/api/footer/{id}
+	put: update footer by id:  http://localhost:81/api/footer/{id}
+
+
 Position API: 
 	GET: get all position:  http://localhost:81/api/position
 	GET: get position detail:  http://localhost:81/api/position/{id}

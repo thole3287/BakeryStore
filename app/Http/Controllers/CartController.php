@@ -74,6 +74,7 @@ class CartController extends Controller
         foreach ($billDetail as $detail) {
             $product = Products::find($detail->id_product);
             $product->stock += $detail->quantity;
+            $detail->delete();
             $product->save();
         }
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DescriptionOfAboutController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FAQsController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ForteController;
 use App\Http\Controllers\HiringAboutController;
 use App\Http\Controllers\NoNastiesController;
@@ -141,14 +142,20 @@ Route::get('detete-item-cart/{id}', [CartController::class, 'deleteItemCart']);
 Route::get('detete-item-all-cart/{id}', [CartController::class, 'deleteItemAllCart']);
 Route::get('save-item-list-cart/{id}', [CartController::class, 'saveListItemCart']);
 // Route::get('clear-cart', [CartController::class, 'clearCart']);
-Route::get('order-list', [CartController::class, 'orderList']);
 
 
 //order item
+Route::get('order-list', [CartController::class, 'orderList']);
 Route::post('order-items', [CartController::class, 'orderItems']);
 Route::get("count-user-order/{userId}",[OrderController::class, "countUserOrders"]);
+Route::get('order-update/{id}', [CartController::class, 'show']);
+Route::delete('bill-detail/{billDetailId}', [OrderController::class, 'removeProductFromBill']); // delete 1 product in bill
+Route::delete('delete-bill/{id}', [CartController::class,'deleteBill']);//ok delete all product in bill
+// Route::post('/remove-product-from-bill', [OrderController::class, 'removeProductFromBill']);
 // Route::get("count-user-order/{id}",[OrderController::class, "getUserBills"]);
 // Route::get("count/{user_id}",[OrderController::class, "getUserOrders"]);
+Route::get("test/{id}",[OrderController::class, "showtest"]);
+
 
 
 
@@ -234,8 +241,12 @@ Route::group(['middleware' => 'jwtManager'], function () {
 //     Route::post('orders/{orderId}/items/{itemId}/cancel', [CartController::class, 'cancelOrderItem']);
 // });
 
-Route::get('order-update/{id}', [CartController::class, 'show']);
-Route::delete('/orders/{id}/items/{itemId}', [CartController::class, 'cancelOrderItem']);
+
+
+
+
+
+// Route::delete('/orders/{id}/items/{itemId}', [CartController::class, 'cancelOrderItem']);
 
 // Route::put('cancel-order/{id}', [CartController::class, 'cancelOrder']);
 
@@ -266,6 +277,12 @@ Route::get('customer', [CustomerController::class, 'index']);
 Route::get('customer/{id}', [CustomerController::class, 'show']);
 Route::put('customer/{id}', [CustomerController::class, 'update']);
 Route::delete('customer/{id}', [CustomerController::class, 'destroy']);
+
+Route::get('footer', [FooterController::class, 'index']);
+Route::get('footer/{id}', [FooterController::class, 'show']);
+Route::post('footer', [FooterController::class, 'store']);
+Route::put('footer/{id}', [FooterController::class, 'update']);
+Route::delete('footer/{id}', [FooterController::class, 'destroy']);
 
 
 
@@ -304,7 +321,6 @@ Route::get('/cart', [CartController::class, 'showCart']);
 
 
 Route::delete('order-items/{id}', [CartController::class, 'cancelOrderItem']);
-Route::delete('delete-bill/{id}', [CartController::class,'deleteBill']);//ok
 
 
 
