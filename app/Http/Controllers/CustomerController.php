@@ -38,7 +38,6 @@ class CustomerController extends Controller
         $customer->gender= $request->gender;
         $customer->email= $request->email;
         $customer->address= $request->address;
-        $customer->phone= $request->phone;
         $customer->phone_number= $request->phone_number;
         $customer->note= $request->note;
         $customer->save();
