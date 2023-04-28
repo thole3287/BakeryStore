@@ -140,6 +140,8 @@ About Cake API:
 	GET: get all about cakes:  http://localhost:81/api/about-discription
 	GET: get about cakes detail:  http://localhost:81/api/about-discription/{id}
 
+Sales Report API:
+	GET: get sales report each weak, month, year: http://localhost:81/api/sales-report
 
 Search API:
 	Search by key:  http://localhost:81/api/search (key: key)

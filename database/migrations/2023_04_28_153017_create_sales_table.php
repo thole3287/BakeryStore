@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->integer('discount');
+            $table->json('sales_by_day_of_week');
+            $table->json('sales_by_day_of_month');
+            $table->json('sales_by_month_of_year');
+            $table->decimal('sales_last_week', 10, 2);
+            $table->decimal('sales_last_month', 10, 2);
+            $table->json('sales_by_month_of_previous_year');
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('sales');
     }
 };

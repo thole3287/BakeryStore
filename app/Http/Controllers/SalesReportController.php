@@ -3,12 +3,100 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bills;
+use App\Models\Sales;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SalesReportController extends Controller
 {
+    public function salesByPeriod()
+    {
+        // get current date and time
+        $now = Carbon::now();
+        
+        // get sales for each day of the week
+        $salesByDayOfWeek = Bills::where('state', 1)->orWhere('state', 2)
+            ->whereBetween('date_order', [
+                $now->startOfWeek(),
+                $now->endOfWeek(),
+            ])
+            ->selectRaw('DATE(date_order) as date, SUM(total) as total_sales')
+            ->groupBy('date')
+            ->get();
+        // get sales for each week of the month
+        $salesByWeekOfMonth = Bills::where('state', 1)->orWhere('state', 2)
+                                    ->whereBetween('date_order', [
+                                        $now->startOfMonth(),
+                                        $now->endOfMonth(),
+                                    ])
+                                    ->selectRaw('WEEK(date_order) as week, SUM(total) as total_sales')
+                                    ->groupBy('week')
+                                    ->get();
+
+        // get sales for each day of the month
+        $salesByDayOfMonth = Bills::where('state', 1)->orWhere('state', 2)
+            ->whereBetween('date_order', [
+                $now->startOfMonth(),
+                $now->endOfMonth(),
+            ])
+            ->selectRaw('DATE(date_order) as date, SUM(total) as total_sales')
+            ->groupBy('date')
+            ->get();
+
+        // get sales for each month of the year
+        $salesByMonthOfYear = Bills::where('state', 1)->orWhere('state', 2)
+            ->whereYear('date_order', $now->year)
+            ->selectRaw('MONTH(date_order) as month, SUM(total) as total_sales')
+            ->groupBy('month')
+            ->get();
+
+        // get sales for the previous week
+        $previousWeek = Carbon::now()->subWeek();
+        $salesLastWeek = Bills::where('state', 1)->orWhere('state', 2)
+            ->whereBetween('date_order', [
+                $previousWeek->startOfWeek(),
+                $previousWeek->endOfWeek(),
+            ])
+            ->sum('total');
+
+        // get sales for the last month
+        $previousMonth = Carbon::now()->subMonth();
+        $salesLastMonth = Bills::where('state', 1)->orWhere('state', 2)
+            ->whereBetween('date_order', [
+                $previousMonth->startOfMonth(),
+                $previousMonth->endOfMonth(),
+            ])
+            ->sum('total');
+
+        // get sales for each month of the previous year
+        $salesByMonthOfPreviousYear = Bills::where('state', 1)->orWhere('state', 2)
+            ->whereYear('date_order', $now->year - 1)
+            ->selectRaw('MONTH(date_order) as month, SUM(total) as total_sales')
+            ->groupBy('month')
+            ->get();
+
+        // // save the results to the database
+        // $sales = new Sales();
+        // $sales->sales_by_day_of_week = $salesByDayOfWeek;
+        // $sales->sales_by_day_of_month = $salesByDayOfMonth;
+        // $sales->sales_by_month_of_year = $salesByMonthOfYear;
+        // $sales->sales_last_week = $salesLastWeek;
+        // $sales->sales_last_month = $salesLastMonth;
+        // $sales->sales_by_month_of_previous_year = $salesByMonthOfPreviousYear;
+        // $sales->save();
+
+        // return the results as a JSON response
+        return response()->json([
+            'sales_by_day_of_week' => $salesByDayOfWeek,
+            'sales_by_weak_of_month' =>$salesByWeekOfMonth,
+            // 'sales_by_day_of_month' => $salesByDayOfMonth,
+            'sales_by_month_of_year' => $salesByMonthOfYear,
+            'sales_last_week' => $salesLastWeek,
+            'sales_last_month' => $salesLastMonth,
+            'sales_by_month_of_previous_year' => $salesByMonthOfPreviousYear,
+        ]);
+    }
     public function salesReport()
     {
        // Get the current date and time

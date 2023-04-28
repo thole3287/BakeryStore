@@ -160,7 +160,9 @@ Route::post('update-state-bill/{id}', [CartController::class, 'postOrderUpdate']
 // Route::get("count/{user_id}",[OrderController::class, "getUserOrders"]);
 Route::get("test/{id}",[OrderController::class, "showtest"]);
 
-Route::get('/sales-report', [SalesReportController::class, 'salesReport']);
+// Route::get('/sales-report', [SalesReportController::class, 'salesReport']);
+Route::get('/sales-report', [SalesReportController::class, 'salesByPeriod']);
+
 
 
 
