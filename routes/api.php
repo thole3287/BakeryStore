@@ -151,6 +151,8 @@ Route::get("count-user-order/{userId}",[OrderController::class, "countUserOrders
 Route::get('order-update/{id}', [CartController::class, 'show']);
 Route::delete('bill-detail/{billDetailId}', [OrderController::class, 'removeProductFromBill']); // delete 1 product in bill
 Route::delete('delete-bill/{id}', [CartController::class,'deleteBill']);//ok delete all product in bill
+Route::post('update-state-bill/{id}', [CartController::class, 'postOrderUpdate']);
+
 // Route::post('/remove-product-from-bill', [OrderController::class, 'removeProductFromBill']);
 // Route::get("count-user-order/{id}",[OrderController::class, "getUserBills"]);
 // Route::get("count/{user_id}",[OrderController::class, "getUserOrders"]);
