@@ -20,6 +20,7 @@ use App\Http\Controllers\PasswordResetRequestController;
 use App\Http\Controllers\PositionAboutController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductsTypeController;
+use App\Http\Controllers\SalesReportController;
 use App\Http\Controllers\SlideController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -82,6 +83,7 @@ Route::get('branch/{id}', [BranchController::class, 'show']);//detail
 // Route::put('branch/{id}', [BranchController::class, 'update']);
 
 Route::group(['middleware' => 'jwtManager'], function () {
+    // Route::post('update-state-bill/{id}', [CartController::class, 'postOrderUpdate']);
     Route::post('branch', [BranchController::class, 'store']);
     Route::delete('branch/{id}', [BranchController::class, 'destroy']);
     Route::put('branch/{id}', [BranchController::class, 'update']);
@@ -157,6 +159,10 @@ Route::post('update-state-bill/{id}', [CartController::class, 'postOrderUpdate']
 // Route::get("count-user-order/{id}",[OrderController::class, "getUserBills"]);
 // Route::get("count/{user_id}",[OrderController::class, "getUserOrders"]);
 Route::get("test/{id}",[OrderController::class, "showtest"]);
+
+Route::get('/sales-report', [SalesReportController::class, 'salesReport']);
+
+
 
 
 

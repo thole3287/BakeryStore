@@ -52,7 +52,7 @@ Order Items API:
 	DELETE: delete bill and bill detail :: http://localhost:81/api/delete-bill/{id}
 	Get: get detail bill: http://localhost:81/api/order-update/{id}
 	GET: get bill of user: http://localhost:81/api/count-user-order/{userId}
-	POST: update bills state : /localhost:81/api/update-state-bill/{id}
+	POST: update bills state : http://localhost:81/api/update-state-bill/{id}
 
 FAQs API: 
 	GET: all faqs: http://localhost:81/api/faq

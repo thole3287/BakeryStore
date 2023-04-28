@@ -17,6 +17,8 @@ class VerifyCsrfToken extends Middleware
         'api/cancelOrderItem/*',
         'api/order-items/*',
         'api/delete-bill/*',
+        'api/delete-bill/*',
+        'api/update-state-bill/*',
 
     ];
 }
