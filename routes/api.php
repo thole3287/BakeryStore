@@ -162,6 +162,11 @@ Route::get("test/{id}",[OrderController::class, "showtest"]);
 
 // Route::get('/sales-report', [SalesReportController::class, 'salesReport']);
 Route::get('/sales-report', [SalesReportController::class, 'salesByPeriod']);
+Route::get('/sales/per_day_by_week', [SalesReportController::class, 'getTotalSalesPerDayByWeek']);
+Route::get('/sales/per_week_by_month', [SalesReportController::class, 'getTotalSalesPerWeekByMonth']);
+Route::get('/sales/per_month_by_year', [SalesReportController::class, 'getTotalSalesPerMonthByYear']);
+Route::get('/sales/by_year/{year}',  [SalesReportController::class, 'getTotalSalesByYear']);
+
 
 
 

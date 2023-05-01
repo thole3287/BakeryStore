@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Mail\CancelOrder;
 use App\Models\Bill_detail;
 use App\Models\Bills;
@@ -253,7 +254,7 @@ class CartController extends Controller
     {
         Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $items));
     }
-    public function orderItems(Request $request)
+    public function orderItems(OrderRequest $request)
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
@@ -276,13 +277,13 @@ class CartController extends Controller
        
      
         $cus = new Customer();
-        $cus->name = $request->input('name');
+        $cus->name = $request->name;
         $cus->user_id = auth()->user()->id;
-        $cus->gender = $request->input('gender');
-        $cus->email = $request->input('email');
-        $cus->address = $request->input('address');
-        $cus->phone_number = $request->input('phone');
-        $cus->note = $request->input('note');
+        $cus->gender = $request->gender;
+        $cus->email = $request->email;
+        $cus->address = $request->address;
+        $cus->phone_number = $request->phone;
+        $cus->note = $request->note;
         $cus->save();
 
         //save information of bill

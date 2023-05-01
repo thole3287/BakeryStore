@@ -10,6 +10,61 @@ use Illuminate\Http\Request;
 
 class SalesReportController extends Controller
 {
+    public function getTotalSalesPerDayByWeek()
+    {
+        $sales = DB::table('bills')
+                    ->select(DB::raw('DATE(date_order) as date'), DB::raw('WEEK(date_order) as week'), DB::raw('SUM(total) as total_sales'))
+                    ->groupBy('date', 'week')
+                    ->orderBy('date', 'asc')
+                    ->get();
+        
+        return response()->json($sales);
+    }
+
+    public function getTotalSalesPerWeekByMonth()
+    {
+        $sales = DB::table('bills')
+                    ->select(DB::raw('WEEK(date_order) as week'), DB::raw('MONTH(date_order) as month'), DB::raw('SUM(total) as total_sales'))
+                    ->groupBy('week', 'month')
+                    ->orderBy('month', 'asc')
+                    ->get();
+        
+        return response()->json($sales);
+    }
+
+    public function getTotalSalesPerMonthByYear()
+    {
+        $sales = DB::table('bills')
+                    ->select(DB::raw('MONTH(date_order) as month'), DB::raw('YEAR(date_order) as year'), DB::raw('SUM(total) as total_sales'))
+                    ->groupBy('month', 'year')
+                    ->orderBy('year', 'asc')
+                    ->get();
+        
+        return response()->json($sales);
+    }
+
+    public function getTotalSalesByYear($year)
+    {  
+    //     ->whereYear('date_order', $year)
+    //     ->get();
+
+       
+        // $sales = DB::table('bills')
+        $sales = Bills::select(DB::raw('YEAR(date_order) as year'), DB::raw('SUM(total) as total_sales'))
+                    ->whereYear('date_order', $year)
+                    ->groupBy('year')
+                    ->get();
+        if(! $sales)
+        {
+            return response()->json([
+                'message'=>'Year Not Found.'
+            ],404);
+            
+        }
+        
+        return response()->json($sales);
+    }
+
     public function salesByPeriod()
     {
         // get current date and time
