@@ -19,4 +19,5 @@ class Bills extends Model
     {
         return $this->belongsTo(Customer::class, "id_customer", "id");
     }
+
 }

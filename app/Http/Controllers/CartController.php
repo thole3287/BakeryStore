@@ -16,6 +16,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderPlaced;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -29,10 +30,27 @@ class CartController extends Controller
     public function orderList()
     {
         
-        $order = Bills::join('Customer','Customer.id','=', 'bills.id_customer')->get();
+        // $order = Bills::join('Customer','Customer.id','=', 'bills.id_customer')->get();
+        // // $order = Bills::with('customer')->get();
+        // // // Loop through the bills and add the customer information to each one
+        // // foreach ($order as $bill) {
+        // //     $bill->customer = $bill->customer;
+        // // }
+
+        // return response()->json([
+        //     'order' => $order,
+        // ]);
+        // $orders = DB::table('bills')
+        //     ->join('customer', 'bills.id_customer', '=', 'customer.id')
+        //     ->select('bills.*', 'customer.name as customer_name', 'customer.email as customer_email', 'customer.address as customer_address', 'customer.phone_number as customer_phone_number')
+        //     ->get();
+        $orders = Bills::join('customer', 'bills.id_customer', '=', 'customer.id')
+            ->select('bills.*', 'customer.name as customer_name', 'customer.email as customer_email', 'customer.address as customer_address', 'customer.phone_number as customer_phone_number')
+            ->get();
+
         return response()->json([
-            'order' => $order,
-        ]);
+                'data' => $orders
+            ]);
     }
     public function show($id)
     {
