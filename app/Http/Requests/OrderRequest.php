@@ -26,7 +26,7 @@ class OrderRequest extends FormRequest
             // 'gender' => 'required|string|max:4',
             'email' => 'required|email',
             'address' => 'required|string',
-            'phone' => 'required|numeric|max:10',
+            'phone' => 'required|numeric|max:12',
             'note' => 'nullable'
         ];
     }

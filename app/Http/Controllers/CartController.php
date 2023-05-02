@@ -272,7 +272,7 @@ class CartController extends Controller
     {
         Mail::to($customer->email)->send(new OrderPlaced($customer, $bill, $items));
     }
-    public function orderItems(OrderRequest $request)
+    public function orderItems(Request $request)
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
@@ -295,13 +295,13 @@ class CartController extends Controller
        
      
         $cus = new Customer();
-        $cus->name = $request->name;
+        $cus->name = $request->input('name');
         $cus->user_id = auth()->user()->id;
         // $cus->gender = $request->gender;
-        $cus->email = $request->email;
-        $cus->address = $request->address;
-        $cus->phone_number = $request->phone;
-        $cus->note = $request->note;
+        $cus->email = $request->input('email');
+        $cus->address = $request->input('address');
+        $cus->phone_number = $request->input('phone_number');
+        $cus->note = $request->input('note');
         $cus->save();
 
         //save information of bill
@@ -329,7 +329,7 @@ class CartController extends Controller
         }
 
         // Send confirmation email
-        $this->sendOrderConfirmationEmail($cus, $bill, $items);
+        // $this->sendOrderConfirmationEmail($cus, $bill, $items);
 
         return response()->json([
             'success' => true, 

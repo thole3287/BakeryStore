@@ -311,7 +311,6 @@ Route::delete('footer/{id}', [FooterController::class, 'destroy']);
 
 
 
-Route::get('/user-profile', [AuthController::class, 'userProfile']);
 
 //identify
 Route::group([
@@ -324,6 +323,8 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::put('/change-password', [AuthController::class, 'changePassword']); //update password user with old password
     Route::put('/users/{id}', [AuthController::class, 'update']);//update info user
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+
     // Route::post('/login-admin', [AdminController::class, 'identifyUser']);
     // Route::get('/user-profile-admin', [AdminController::class, 'userProfile']);
     Route::post('send-password-reset-link', [PasswordResetRequestController::class, 'sendEmail']);
