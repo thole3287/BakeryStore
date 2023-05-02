@@ -99,15 +99,15 @@ Route::group(['middleware' => 'jwtManager'], function () {
 //products
 Route::get('products', [ProductsController::class, 'Index']);
 Route::get('products/{id}', [ProductsController::class, 'show']); //product-detail
-// Route::post('products', [ProductsController::class, 'store']);
-// Route::put('products/{id}', [ProductsController::class, 'update']);
-// Route::delete('products/{id}', [ProductsController::class, 'destroy']);
+Route::post('products', [ProductsController::class, 'store']);
+Route::put('products/{id}', [ProductsController::class, 'update']);
+Route::delete('products/{id}', [ProductsController::class, 'destroy']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
-    Route::post('products', [ProductsController::class, 'store']);
-    Route::put('products/{id}', [ProductsController::class, 'update']);
-    Route::delete('products/{id}', [ProductsController::class, 'destroy']);
-});
+// Route::group(['middleware' => 'jwtManager'], function () {
+//     Route::post('products', [ProductsController::class, 'store']);
+//     Route::put('products/{id}', [ProductsController::class, 'update']);
+//     Route::delete('products/{id}', [ProductsController::class, 'destroy']);
+// });
 
 //type product
 // Route::get("products-type", [ProductsTypeController::class, 'index']);
@@ -311,6 +311,7 @@ Route::delete('footer/{id}', [FooterController::class, 'destroy']);
 
 
 
+Route::get('/user-profile', [AuthController::class, 'userProfile']);
 
 //identify
 Route::group([
@@ -321,7 +322,6 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::put('/change-password', [AuthController::class, 'changePassword']); //update password user with old password
     Route::put('/users/{id}', [AuthController::class, 'update']);//update info user
     // Route::post('/login-admin', [AdminController::class, 'identifyUser']);

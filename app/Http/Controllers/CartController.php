@@ -31,15 +31,15 @@ class CartController extends Controller
     {
         
         // $order = Bills::join('Customer','Customer.id','=', 'bills.id_customer')->get();
-        // // $order = Bills::with('customer')->get();
-        // // // Loop through the bills and add the customer information to each one
-        // // foreach ($order as $bill) {
-        // //     $bill->customer = $bill->customer;
-        // // }
+        // // // $order = Bills::with('customer')->get();
+        // // // // Loop through the bills and add the customer information to each one
+        // // // foreach ($order as $bill) {
+        // // //     $bill->customer = $bill->customer;
+        // // // }
 
         // return response()->json([
         //     'order' => $order,
-        // ]);
+        // ]); ////chạy FE BTH
         // $orders = DB::table('bills')
         //     ->join('customer', 'bills.id_customer', '=', 'customer.id')
         //     ->select('bills.*', 'customer.name as customer_name', 'customer.email as customer_email', 'customer.address as customer_address', 'customer.phone_number as customer_phone_number')
@@ -49,7 +49,7 @@ class CartController extends Controller
             ->get();
 
         return response()->json([
-                'data' => $orders
+                'order' => $orders
             ]);
     }
     public function show($id)
@@ -297,7 +297,7 @@ class CartController extends Controller
         $cus = new Customer();
         $cus->name = $request->name;
         $cus->user_id = auth()->user()->id;
-        $cus->gender = $request->gender;
+        // $cus->gender = $request->gender;
         $cus->email = $request->email;
         $cus->address = $request->address;
         $cus->phone_number = $request->phone;

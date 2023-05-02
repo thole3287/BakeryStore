@@ -23,7 +23,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'gender' => 'required|string|max:4',
+            // 'gender' => 'required|string|max:4',
             'email' => 'required|email',
             'address' => 'required|string',
             'phone' => 'required|numeric|max:10',
