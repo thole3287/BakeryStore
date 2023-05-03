@@ -34,7 +34,7 @@ class AuthController extends Controller
 
         // Verify the current password
         if (!Hash::check($request->input('old_password'), $user->password)) {
-            return response()->json(['error' => 'Current password does not match.'], 400);
+            return response()->json(['error' => 'Old password does not match.'], 400);
         }
 
         // Update the password
