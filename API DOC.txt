@@ -12,7 +12,8 @@ Auth API:
 	POST: register account: http://localhost:81/api/auth/register (Key: name, email, password, password_confirmation)
 	POST: Logout: http://localhost:81/api/auth/logout
 	PUT: UPDATE USER:  http://localhost:81/api/users/{id}
-	PUT: UPDATE PASSWORD USER:  http://localhost:81/apis/update-password 
+	PUT: UPDATE PASSWORD USER:  http://localhost:81/api/update-password
+	POST: send link reset password:  http://localhost:81/api/send-password-reset-link (key query pagrams: email (value))
 
 
 Product API:
