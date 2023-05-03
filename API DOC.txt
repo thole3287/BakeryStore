@@ -13,8 +13,8 @@ Auth API:
 	POST: Logout: http://localhost:81/api/auth/logout
 	PUT: UPDATE USER:  http://localhost:81/api/users/{id}
 	PUT: UPDATE PASSWORD USER:  http://localhost:81/api/update-password
-	POST: send link reset password:  http://localhost:81/api/send-password-reset-link (key query pagrams: email (value))
-	POST: change password reset:  http://localhost:81/api/reset-password (key: token, password, password_confirmation)
+	POST: send link reset password:  http://localhost:81/api/auth/send-password-reset-link (key query pagrams: email (value))
+	POST: change password reset:  http://localhost:81/api/auth/reset-password (key: token, password, password_confirmation)
 
 
 Product API:
