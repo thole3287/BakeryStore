@@ -45,56 +45,7 @@ class AuthController extends Controller
     }
 
 
-    // public function changePassword(Request $request)
-    // {
-    //     $user = Auth::user();
-    //     $validator = Validator::make($request->all(), [
-    //         'old_password' => 'required',
-    //         'new_password' => 'required|string|min:6|confirmed',
-    //     ]);
 
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()], 422);
-    //     }
-
-    //     if (!Hash::check($request->old_password, $user->password)) {
-    //         return response()->json(['error' => 'Invalid old password'], 401);
-    //     }
-
-    //     $user->password = Hash::make($request->new_password);
-    //     $user->save();
-
-    //     return response()->json(['success' => 'Password updated successfully'], 200);
-    // }
-    public function loginAdmin(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = JWTAuth::fromUser($user);
-            if ($user->level == 2) {
-                return response()->json([
-                    'message' => 'Login successful as manager',
-                    'token' => $token,
-                    // 'user' => $user
-                ], 200);
-            } else if ($user->level == 1) {
-                return response()->json([
-                    'message' => 'Login successful as staff',
-                    'token' => $token,
-                    // 'user' => $user
-                ], 200);
-            } else {
-                return response()->json([
-                    'message' => 'Invalid user level',
-                ], 401);
-            }
-        } else {
-            return response()->json([
-                'message' => 'Invalid email or password',
-            ], 401);
-        }
-    }
     /**
      * Get a JWT via given credentials.
      *
