@@ -55,7 +55,7 @@ Route::get('faq/{id}', [FAQsController::class, 'show']);//detail
 // Route::delete('faq/{id}', [FAQsController::class, 'destroy']);
 // Route::put('faq/{id}', [FAQsController::class, 'update']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     Route::post('faq', [FAQsController::class, 'store']);
     Route::delete('faq/{id}', [FAQsController::class, 'destroy']);
     Route::put('faq/{id}', [FAQsController::class, 'update']);
@@ -69,7 +69,7 @@ Route::get('nasties/{id}', [NoNastiesController::class, 'show']);//detail
 // Route::delete('nasties/{id}', [NoNastiesController::class, 'destroy']);
 // Route::put('nasties/{id}', [NoNastiesController::class, 'update']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     Route::post('nasties', [NoNastiesController::class, 'store']);
     Route::delete('nasties/{id}', [NoNastiesController::class, 'destroy']);
     Route::put('nasties/{id}', [NoNastiesController::class, 'update']);
@@ -82,7 +82,7 @@ Route::get('branch/{id}', [BranchController::class, 'show']);//detail
 // Route::delete('branch/{id}', [BranchController::class, 'destroy']);
 // Route::put('branch/{id}', [BranchController::class, 'update']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::post('update-state-bill/{id}', [CartController::class, 'postOrderUpdate']);
     Route::post('branch', [BranchController::class, 'store']);
     Route::delete('branch/{id}', [BranchController::class, 'destroy']);
@@ -103,7 +103,7 @@ Route::get('products/{id}', [ProductsController::class, 'show']); //product-deta
 // Route::put('products/{id}', [ProductsController::class, 'update']);
 // Route::delete('products/{id}', [ProductsController::class, 'destroy']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     Route::post('products', [ProductsController::class, 'store']);
     Route::put('products/{id}', [ProductsController::class, 'update']);
     Route::delete('products/{id}', [ProductsController::class, 'destroy']);
@@ -126,7 +126,7 @@ Route::get("products-type/{id}",[ProductsTypeController::class, "show"]); //prod
 // Route::put('products-type/{id}', [ProductsTypeController::class, 'update']);
 // Route::delete('products-type/{id}', [ProductsTypeController::class, 'destroy']);
 Route::get("get-all-products-in-category/{id}",[ProductsTypeController::class, "getAllProductInCategory"]); //product type -de
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::get("products-type", [ProductsTypeController::class, 'index']);
     // Route::get("products-type/{type_id}",[ProductsTypeController::class, "show"]); //product type -detail
     Route::post("products-type", [ProductsTypeController::class, 'store']);
@@ -152,7 +152,7 @@ Route::post('update-state-bill/{id}', [OrderController::class, 'postOrderUpdate'
 
 // Route::get('/sales-report', [SalesReportController::class, 'salesReport']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     Route::get('/sales-report', [SalesReportController::class, 'salesByPeriod']);
     Route::get('/sales/per_day_by_week', [SalesReportController::class, 'getTotalSalesPerDayByWeek']);
     Route::get('/sales/per_week_by_month', [SalesReportController::class, 'getTotalSalesPerWeekByMonth']);
@@ -170,7 +170,7 @@ Route::get('slide/{id}', [SlideController::class, 'show']); //slide detail
 // Route::put('slide/{id}',[SlideController::class, 'update']);
 // Route::delete('slide/{id}', [SlideController::class, 'destroy']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::get('slide', [SlideController::class, 'index']);
     // Route::get('slide/{id}', [SlideController::class, 'show']); //slide detail
     Route::post('slide', [SlideController::class, 'store']);
@@ -181,7 +181,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 //kitchen
 Route::get('kitchen', [OurKitchenController::class, 'index']);
 Route::get('kitchen/{id}', [OurKitchenController::class, 'show']); //kitchen detail
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::get('kitchen', [OurKitchenController::class, 'index']);
     // Route::get('kitchen/{id}', [OurKitchenController::class, 'show']); //kitchen detail
     Route::post('kitchen', [OurKitchenController::class, 'store']);
@@ -194,7 +194,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 //avaible position
 Route::get('position', [PositionAboutController::class, 'index']);
 Route::get('position/{id}', [PositionAboutController::class, 'show']); //position detail
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::get('position', [PositionAboutController::class, 'index']);
     // Route::get('position/{id}', [PositionAboutController::class, 'show']); //position detail
     Route::post('position', [PositionAboutController::class, 'store']);
@@ -205,7 +205,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 /// we are hiring
 Route::get('hiring', [HiringAboutController::class, 'index']);
 Route::get('hiring/{id}', [HiringAboutController::class, 'show']); //hiring detail
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::get('hiring', [HiringAboutController::class, 'index']);
     // Route::get('hiring/{id}', [HiringAboutController::class, 'show']); //hiring detail
     Route::post('hiring', [HiringAboutController::class, 'store']);
@@ -217,7 +217,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 Route::get('forte', [ForteController::class, 'index']);
 Route::get('forte/{id}', [ForteController::class, 'show']); //forte detail
 Route::get('get-three-forte', [ForteController::class, 'get3InFor']);
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::get('forte', [ForteController::class, 'index']);
     // Route::get('forte/{id}', [ForteController::class, 'show']); //forte detail
     Route::post('forte', [ForteController::class, 'store']);
@@ -228,7 +228,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 /// we are about-baker
 Route::get('about-baker', [DescriptionOfAboutController::class, 'index']);
 Route::get('about-baker/{id}', [DescriptionOfAboutController::class, 'show']); //about-baker detail
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     // Route::get('about-baker', [DescriptionOfAboutController::class, 'index']);
     // Route::get('about-baker/{id}', [DescriptionOfAboutController::class, 'show']); //about-baker detail
     Route::post('about-baker', [DescriptionOfAboutController::class, 'store']);
@@ -239,7 +239,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 
 
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     Route::get('/employees', [EmployeeController::class, 'index']);
     Route::post('/employees', [EmployeeController::class, 'store']);
     Route::get('/employees/{id}', [EmployeeController::class, 'show']);
@@ -257,7 +257,7 @@ Route::get('customer', [CustomerController::class, 'index']);
 Route::get('customer/{id}', [CustomerController::class, 'show']);
 
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     Route::put('customer/{id}', [CustomerController::class, 'update']);
     Route::delete('customer/{id}', [CustomerController::class, 'destroy']);
 });
@@ -266,7 +266,7 @@ Route::group(['middleware' => 'jwtManager'], function () {
 Route::get('footer', [FooterController::class, 'index']);
 Route::get('footer/{id}', [FooterController::class, 'show']);
 
-Route::group(['middleware' => 'jwtManager'], function () {
+Route::group(['middleware' => 'jwtStaff'], function () {
     Route::post('footer', [FooterController::class, 'store']);
     Route::put('footer/{id}', [FooterController::class, 'update']);
     Route::delete('footer/{id}', [FooterController::class, 'destroy']);
