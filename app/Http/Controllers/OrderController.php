@@ -125,7 +125,7 @@ class OrderController extends Controller
         $bill->date_order = date('Y-m-d');
         $bill->total = $total;
         $bill->payment = $request->input('payment');
-        $bill->note = $request->input('note');
+        $bill->note = $request->note;
         $bill->save();
 
         //save order details

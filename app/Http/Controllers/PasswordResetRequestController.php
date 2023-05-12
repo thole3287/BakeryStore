@@ -45,7 +45,7 @@ class PasswordResetRequestController extends Controller
 
     public function saveToken($token, $email)  // this function save new password
     {
-        DB::table('password_resets')->insert([
+        DB::table('password_reset_tokens')->insert([
             'email' => $email,
             'token' => $token,
             'created_at' => Carbon::now()
