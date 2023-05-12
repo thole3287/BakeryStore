@@ -115,7 +115,7 @@ class OrderController extends Controller
         // $cus->gender = $request->gender;
         $cus->email = $request->email;
         $cus->address = $request->address;
-        $cus->phone_number = $request->phone;
+        $cus->phone_number = $request->phone_number;
         $cus->note = $request->note;
         $cus->save();
 

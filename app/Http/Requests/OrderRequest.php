@@ -26,7 +26,7 @@ class OrderRequest extends FormRequest
             // 'gender' => 'required|string|max:4',
             'email' => 'required|email',
             'address' => 'required|string',
-            'phone' => 'required|numeric|max:12',
+            'phone_number' => 'required|numeric',
             'note' => 'nullable'
         ];
     }
@@ -41,9 +41,8 @@ class OrderRequest extends FormRequest
             'email.email' => 'Email must be in the correct format!',
             'address.required' => 'Address must be required!',
             'address.string' => 'Address must be string!',
-            'phone.required' => 'Phone must be required!',
-            'phone.numeric' => 'Phone must be numeric!',
-            'phone.max' => 'Phone number up to 10 numbers!',
+            'phone_number.required' => 'Phone must be required!',
+            'phone_number.numeric' => 'Phone must be numeric!',
         ];
     }
 }
